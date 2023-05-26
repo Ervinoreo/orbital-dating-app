@@ -1,23 +1,23 @@
 import 'package:dating_app/components/my_button.dart';
 import 'package:dating_app/components/my_textfield.dart';
-import 'package:dating_app/screens/login/forgot_password_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   final Function()? onTap;
-  const LoginScreen({super.key, required this.onTap});
+  const RegisterScreen({super.key, required this.onTap});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  RegExp regExp = RegExp(r'u.nus.edu');
 
-  void signUserIn() async {
+  void signUserUp() async {
     showDialog(
         context: context,
         builder: (context) {
@@ -26,8 +26,20 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         });
 
+    if (regExp.hasMatch(emailController.text) == false) {
+      Navigator.pop(context);
+      showErrorMessage('Please enter NUS email!');
+      return;
+    }
+
+    if (passwordController.text != confirmPasswordController.text) {
+      Navigator.pop(context);
+      showErrorMessage('Password does not match!');
+      return;
+    }
+
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
@@ -72,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 50,
                 ),
                 Text(
-                  'Welcome to WassupNUS!',
+                  'Let\'s create an account for you!',
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 16,
@@ -83,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 MyTextField(
                   controller: emailController,
-                  hintText: 'NUS Email',
+                  hintText: 'Username/NUS Email',
                   obscureText: false,
                 ),
                 SizedBox(
@@ -97,35 +109,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return ForgetPasswordScreen();
-                          }));
-                        },
-                        child: Text(
-                          'Forgot Password',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                MyTextField(
+                  controller: confirmPasswordController,
+                  hintText: 'Confirm Password',
+                  obscureText: true,
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 MyButton(
-                  text: 'Sign In',
-                  onTap: signUserIn,
+                  text: 'Sign Up',
+                  onTap: signUserUp,
                 ),
                 SizedBox(
                   height: 50,
@@ -133,14 +130,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Not a member?'),
+                    Text('Already have an account?'),
                     SizedBox(
                       width: 4,
                     ),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: Text(
-                        'Register now',
+                        'Login now',
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,

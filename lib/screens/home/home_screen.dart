@@ -23,9 +23,9 @@ class HomeScreen extends StatelessWidget {
         actions: [IconButton(onPressed: signUserOut, icon: Icon(Icons.logout))],
       ),
       body: ElevatedButton(
-        child: Text('Login'),
+        child: Text('Chat'),
         onPressed: () {
-          Navigator.pushNamed(context, '/login');
+          Navigator.pushNamed(context, '/chat');
         },
       ),
     );

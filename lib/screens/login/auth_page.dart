@@ -1,3 +1,4 @@
+import 'package:dating_app/screens/login/login_or_register_screen.dart';
 import 'package:dating_app/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class AuthPage extends StatelessWidget {
           if (snapshot.hasData) {
             return HomeScreen();
           } else {
-            return LoginScreen();
+            return LoginOrRegisterScreen();
           }
         },
       ),

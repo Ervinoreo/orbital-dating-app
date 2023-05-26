@@ -1,7 +1,6 @@
 import 'package:dating_app/screens/chat/chat_screen.dart';
 import 'package:dating_app/screens/home/home_screen.dart';
 import 'package:dating_app/screens/login/auth_page.dart';
-import 'package:dating_app/screens/login/login_screen.dart';
 import 'package:dating_app/screens/matches/matches_screen.dart';
 import 'package:dating_app/screens/user/user_screen.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +16,6 @@ class AppRouter {
         return HomeScreen.route();
       case AuthPage.routeName:
         return AuthPage.route();
-      case LoginScreen.routeName:
-        return LoginScreen.route();
       case ChatScreen.routeName:
         return ChatScreen.route();
       case MatchesScreen.routeName:
