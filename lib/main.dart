@@ -1,4 +1,5 @@
 import 'package:dating_app/config/app_router.dart';
+import 'package:dating_app/screens/home/home_screen.dart';
 import 'package:dating_app/screens/login/auth_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(primaryColor: Colors.blue),
       onGenerateRoute: AppRouter.onGenerateRoute,
-      initialRoute: AuthPage.routeName,
+      initialRoute: HomeScreen.routeName,
     );
   }
 }
