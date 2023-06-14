@@ -55,10 +55,10 @@ class UserCard extends StatelessWidget {
                         )),
                     Row(
                       children: [
-                        UserImageSmall(imageUrl: user.imageUrls[1]),
-                        UserImageSmall(imageUrl: user.imageUrls[2]),
-                        UserImageSmall(imageUrl: user.imageUrls[3]),
-                        UserImageSmall(imageUrl: user.imageUrls[4]),
+                        UserImageSmall(url: user.imageUrls[1]),
+                        UserImageSmall(url: user.imageUrls[2]),
+                        UserImageSmall(url: user.imageUrls[3]),
+                        UserImageSmall(url: user.imageUrls[4]),
                         SizedBox(width: 10),
                         Container(
                             width: 35,
