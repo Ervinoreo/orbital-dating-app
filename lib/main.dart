@@ -1,5 +1,10 @@
 import 'package:dating_app/config/app_router.dart';
+import 'package:dating_app/screens/home/home_screen.dart';
 import 'package:dating_app/screens/login/auth_page.dart';
+import 'package:dating_app/screens/profile/profile_screen.dart';
+import 'package:dating_app/screens/chat/chat_screen.dart';
+import 'package:dating_app/screens/matches/matches_screen.dart';
+import 'package:dating_app/screens/user/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'bloc/swipe/swipe_bloc.dart';
