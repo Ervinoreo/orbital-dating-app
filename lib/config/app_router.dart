@@ -1,9 +1,10 @@
-import 'package:dating_app/screens/chat/chat_screen.dart';
-import 'package:dating_app/screens/home/home_screen.dart';
+import 'dart:convert';
+
+import 'package:dating_app/models/user_model.dart';
 import 'package:dating_app/screens/login/auth_page.dart';
-import 'package:dating_app/screens/matches/matches_screen.dart';
-import 'package:dating_app/screens/user/user_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../screens/screens.dart';
 
 class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
@@ -18,10 +19,12 @@ class AppRouter {
         return AuthPage.route();
       case ChatScreen.routeName:
         return ChatScreen.route();
+      case OnboardingScreen.routeName:
+        return OnboardingScreen.route();
       case MatchesScreen.routeName:
         return MatchesScreen.route();
       case UserScreen.routeName:
-        return UserScreen.route();
+        return UserScreen.route(user: settings.arguments as UserUI);
       default:
         return _errorRoute();
     }

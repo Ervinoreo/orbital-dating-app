@@ -5,6 +5,7 @@ class UserUI extends Equatable {
   final String name;
   final int age;
   final List<String> imageUrls;
+  final List<String> interests;
   final String bio;
   final String jobTitle;
 
@@ -13,6 +14,7 @@ class UserUI extends Equatable {
     required this.name,
     required this.age,
     required this.imageUrls,
+    required this.interests,
     required this.bio,
     required this.jobTitle,
   });
@@ -39,8 +41,10 @@ class UserUI extends Equatable {
         'https://plus.unsplash.com/premium_photo-1663126494738-549d0a6333a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHN1cGVyaGVyb3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60',
         'https://plus.unsplash.com/premium_photo-1682097967456-7f1c2bd9397f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c3VwZXJoZXJvfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
       ],
+      interests: ['Music', 'Politics', 'Hiking'],
       jobTitle: 'super hero',
-      bio: 'Lets save the world',
+      bio:
+          'Lets save the world njshqauiSDHCUHUID SIKXUWHSGDUYGAIZUJ DQWHSAUUZIjuguiic djivdijij',
     ),
     UserUI(
       id: 2,
@@ -53,6 +57,7 @@ class UserUI extends Equatable {
         'https://plus.unsplash.com/premium_photo-1663126494738-549d0a6333a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHN1cGVyaGVyb3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60',
         'https://plus.unsplash.com/premium_photo-1682097967456-7f1c2bd9397f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c3VwZXJoZXJvfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
       ],
+      interests: ['Music', 'Politics', 'Hiking'],
       jobTitle: 'super woman',
       bio: 'Lets eat food',
     ),
@@ -67,6 +72,7 @@ class UserUI extends Equatable {
         'https://plus.unsplash.com/premium_photo-1663126494738-549d0a6333a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHN1cGVyaGVyb3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60',
         'https://plus.unsplash.com/premium_photo-1682097967456-7f1c2bd9397f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c3VwZXJoZXJvfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60',
       ],
+      interests: ['Music', 'Politics', 'Hiking'],
       jobTitle: 'super fat',
       bio: 'Lets cry',
     )

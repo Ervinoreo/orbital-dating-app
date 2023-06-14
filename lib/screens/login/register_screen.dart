@@ -42,6 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
       Navigator.pop(context);
+      Navigator.pushNamed(context, '/onboarding');
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       showErrorMessage(e.code);

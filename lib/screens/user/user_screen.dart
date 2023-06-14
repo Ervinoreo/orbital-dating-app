@@ -6,16 +6,19 @@ import '../widgets/widgets.dart';
 class UserScreen extends StatelessWidget {
   static const String routeName = '/user';
 
-  static Route route() {
+  static Route route({required UserUI user}) {
     return MaterialPageRoute(
-      builder: (_) => UserScreen(),
+      builder: (_) => UserScreen(user: user),
       settings: RouteSettings(name: routeName),
     );
   }
 
+  final UserUI user;
+
+  const UserScreen({required this.user});
+
   @override
   Widget build(BuildContext context) {
-    final UserUI user = UserUI.users[0];
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -31,13 +34,16 @@ class UserScreen extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(bottom: 40.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        image: DecorationImage(
-                          image: NetworkImage(UserUI.users[0].imageUrls[0]),
-                          fit: BoxFit.cover,
-                        )),
+                  child: Hero(
+                    tag: 'user-image',
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          image: DecorationImage(
+                            image: NetworkImage(user.imageUrls[0]),
+                            fit: BoxFit.cover,
+                          )),
+                    ),
                   ),
                 ),
                 Align(
@@ -79,13 +85,72 @@ class UserScreen extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   '${user.name}, ${user.age}',
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: 36,
                     fontWeight: FontWeight.bold,
                   ),
+                ),
+                Text(
+                  '${user.jobTitle}',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'About',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '${user.bio}',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    height: 2,
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Interests',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Row(
+                  children: user.interests
+                      .map(
+                        (interest) => Container(
+                          padding: EdgeInsets.all(5.0),
+                          margin: EdgeInsets.only(top: 5.0, right: 5.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              gradient: LinearGradient(colors: [
+                                Colors.orange[900]!,
+                                Colors.orange[300]!
+                              ])),
+                          child: Text(
+                            interest,
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.white),
+                          ),
+                        ),
+                      )
+                      .toList(),
                 )
               ],
             ),
