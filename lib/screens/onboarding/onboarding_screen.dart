@@ -20,9 +20,9 @@ class OnboardingScreen extends StatelessWidget {
     Tab(
       text: 'Demo',
     ),
-    Tab(text: 'Pictures'),
+    Tab(text: 'Biography'),
     Tab(
-      text: 'Biography',
+      text: 'Pictures',
     )
   ];
 
@@ -43,8 +43,8 @@ class OnboardingScreen extends StatelessWidget {
             children: [
               StartScreen(tabController: tabController),
               DemographyScreen(tabController: tabController),
-              PictureScreen(tabController: tabController),
               Biography(tabController: tabController),
+              PictureScreen(tabController: tabController),
             ],
           ),
         );
