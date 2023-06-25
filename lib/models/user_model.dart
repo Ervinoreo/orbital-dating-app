@@ -1,14 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class UserUI extends Equatable {
-  final int id;
+  final String? id;
   final String name;
   final int age;
-  final List<String> imageUrls;
+  final List<dynamic> imageUrls;
   final String bio;
   final String jobTitle;
-  final List<String> interests;
+  final List<dynamic> interests;
   final String gender;
+  final String location;
 
   const UserUI({
     required this.id,
@@ -19,21 +21,68 @@ class UserUI extends Equatable {
     required this.jobTitle,
     required this.interests,
     required this.gender,
+    required this.location,
   });
 
   @override
-  List<Object?> get props => [
-        id,
-        name,
-        age,
-        imageUrls,
-        bio,
-        jobTitle,
-      ];
+  List<Object?> get props =>
+      [id, name, age, imageUrls, bio, jobTitle, interests, gender, location];
+
+  static UserUI fromSnapshot(DocumentSnapshot snap) {
+    UserUI user = UserUI(
+        id: snap.id,
+        name: snap['name'],
+        age: snap['age'],
+        imageUrls: snap['imageUrls'],
+        bio: snap['bio'],
+        jobTitle: snap['jobTitle'],
+        interests: snap['interests'],
+        gender: snap['gender'],
+        location: snap['location']);
+
+    return user;
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'age': age,
+      'gender': gender,
+      'imageUrls': imageUrls,
+      'interests': interests,
+      'bio': bio,
+      'jobTitle': jobTitle,
+      'location': location,
+    };
+  }
+
+  UserUI copyWith({
+    String? id,
+    String? name,
+    int? age,
+    String? gender,
+    List<dynamic>? imageUrls,
+    List<dynamic>? interests,
+    String? bio,
+    String? jobTitle,
+    String? location,
+  }) {
+    return UserUI(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      age: age ?? this.age,
+      imageUrls: imageUrls ?? this.imageUrls,
+      bio: bio ?? this.bio,
+      jobTitle: jobTitle ?? this.jobTitle,
+      interests: interests ?? this.interests,
+      gender: gender ?? this.gender,
+      location: location ?? this.location,
+    );
+  }
 
   static List<UserUI> users = [
     UserUI(
-      id: 1,
+      id: '1',
       name: 'Ruobei',
       age: 20,
       imageUrls: [
@@ -47,9 +96,10 @@ class UserUI extends Equatable {
       bio: 'Lets save the world',
       interests: ['singing'],
       gender: 'Male',
+      location: 'Milan',
     ),
     UserUI(
-      id: 2,
+      id: '2',
       name: 'XiaoMa',
       age: 20,
       imageUrls: [
@@ -63,9 +113,10 @@ class UserUI extends Equatable {
       bio: 'Lets eat food',
       interests: ['dancing'],
       gender: 'Male',
+      location: 'Milan',
     ),
     UserUI(
-      id: 3,
+      id: '3',
       name: 'Ervin',
       age: 20,
       imageUrls: [
@@ -79,9 +130,10 @@ class UserUI extends Equatable {
       bio: 'Lets cry',
       interests: ['gaming'],
       gender: 'Male',
+      location: 'Milan',
     ),
     UserUI(
-      id: 4,
+      id: '4',
       name: 'Sara',
       age: 30,
       gender: 'Female',
@@ -96,9 +148,10 @@ class UserUI extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     UserUI(
-      id: 5,
+      id: '5',
       name: 'Anna',
       age: 35,
       gender: 'Female',
@@ -113,9 +166,10 @@ class UserUI extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     UserUI(
-      id: 6,
+      id: '6',
       name: 'Lisa',
       age: 35,
       gender: 'Female',
@@ -130,9 +184,10 @@ class UserUI extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     UserUI(
-      id: 7,
+      id: '7',
       name: 'Luisa',
       age: 35,
       gender: 'Female',
@@ -147,9 +202,10 @@ class UserUI extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     UserUI(
-      id: 8,
+      id: '8',
       name: 'Sara',
       age: 35,
       gender: 'Female',
@@ -164,9 +220,10 @@ class UserUI extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     UserUI(
-      id: 9,
+      id: '9',
       name: 'Andrea',
       age: 35,
       gender: 'Female',
@@ -181,9 +238,10 @@ class UserUI extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     UserUI(
-      id: 11,
+      id: '11',
       name: 'Denise',
       age: 35,
       gender: 'Female',
@@ -198,9 +256,10 @@ class UserUI extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
     UserUI(
-      id: 12,
+      id: '12',
       name: 'Elle',
       age: 35,
       gender: 'Female',
@@ -215,6 +274,7 @@ class UserUI extends Equatable {
       interests: ['Music', 'Economics', 'Football'],
       bio:
           'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+      location: 'Milan',
     ),
   ];
 }

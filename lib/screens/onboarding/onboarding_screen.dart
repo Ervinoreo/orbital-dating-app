@@ -1,7 +1,12 @@
+import 'package:dating_app/bloc/onboarding/onboarding_bloc.dart';
+import 'package:dating_app/repositories/database/database_repository.dart';
+import 'package:dating_app/repositories/storage/storage_repository.dart';
 import 'package:dating_app/screens/onboarding/onboarding_screens/bio_screen.dart';
 import 'package:dating_app/screens/onboarding/onboarding_screens/demo_screen.dart';
+import 'package:dating_app/screens/onboarding/onboarding_screens/location_screen.dart';
 import 'package:dating_app/screens/onboarding/onboarding_screens/pictures_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'onboarding_screens/start_screen.dart';
 
@@ -11,6 +16,17 @@ class OnboardingScreen extends StatelessWidget {
   static Route route() {
     return MaterialPageRoute(
       builder: (_) => OnboardingScreen(),
+      // builder: (context) => MultiBlocProvider(
+      //   providers: [
+      //     BlocProvider<OnboardingBloc>(
+      //       create: (_) => OnboardingBloc(
+      //         databaseRepository: DatabaseRepository(),
+      //         storageRepository: StorageRepository(),
+      //       )..add(StartOnboarding()),
+      //     ),
+      //   ],
+      //   child: OnboardingScreen(),
+      // ),
       settings: RouteSettings(name: routeName),
     );
   }
@@ -23,6 +39,9 @@ class OnboardingScreen extends StatelessWidget {
     Tab(text: 'Biography'),
     Tab(
       text: 'Pictures',
+    ),
+    Tab(
+      text: 'Location',
     )
   ];
 
@@ -45,6 +64,7 @@ class OnboardingScreen extends StatelessWidget {
               DemographyScreen(tabController: tabController),
               Biography(tabController: tabController),
               PictureScreen(tabController: tabController),
+              LocationScreen(tabController: tabController),
             ],
           ),
         );

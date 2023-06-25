@@ -1,12 +1,10 @@
 import 'package:dating_app/config/app_router.dart';
-import 'package:dating_app/screens/home/home_screen.dart';
+import 'package:dating_app/repositories/database/database_repository.dart';
+import 'package:dating_app/repositories/storage/storage_repository.dart';
 import 'package:dating_app/screens/login/auth_page.dart';
-import 'package:dating_app/screens/profile/profile_screen.dart';
-import 'package:dating_app/screens/chat/chat_screen.dart';
-import 'package:dating_app/screens/matches/matches_screen.dart';
-import 'package:dating_app/screens/user/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'bloc/onboarding/onboarding_bloc.dart';
 import 'bloc/swipe/swipe_bloc.dart';
 import 'firebase_options.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +29,13 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
               create: (_) =>
-                  SwipeBloc()..add(LoadUsersEvent(users: UserUI.users)))
+                  SwipeBloc()..add(LoadUsersEvent(users: UserUI.users))),
+          BlocProvider<OnboardingBloc>(
+            create: (_) => OnboardingBloc(
+              databaseRepository: DatabaseRepository(),
+              storageRepository: StorageRepository(),
+            )..add(StartOnboarding()),
+          )
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
