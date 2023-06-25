@@ -2,6 +2,7 @@ import 'package:dating_app/config/app_router.dart';
 import 'package:dating_app/repositories/database/database_repository.dart';
 import 'package:dating_app/repositories/storage/storage_repository.dart';
 import 'package:dating_app/screens/login/auth_page.dart';
+import 'package:dating_app/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'bloc/onboarding/onboarding_bloc.dart';

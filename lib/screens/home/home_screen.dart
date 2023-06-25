@@ -30,8 +30,16 @@ class HomeScreen extends StatelessWidget {
                   signUserOut();
                 },
                 icon: Icon(Icons.logout)),
-            IconButton(icon: Icon(Icons.message), onPressed: () {}),
-            IconButton(icon: Icon(Icons.person), onPressed: () {}),
+            IconButton(
+                icon: Icon(Icons.message),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/matches');
+                }),
+            IconButton(
+                icon: Icon(Icons.person),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/profile');
+                }),
           ]),
       body: BlocBuilder<SwipeBloc, SwipeState>(builder: (context, state) {
         if (state is SwipeLoading) {

@@ -22,7 +22,7 @@ class StartScreen extends StatelessWidget {
               Container(
                 height: 200,
                 width: 200,
-                child: SvgPicture.asset('assets/couple.svg'),
+                child: Image.asset('assets/wassupnus logo 2.png'),
               ),
               SizedBox(
                 height: 50,
@@ -35,7 +35,7 @@ class StartScreen extends StatelessWidget {
                 height: 20,
               ),
               Text(
-                ' long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed ',
+                'Start your new journey',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 14, fontWeight: FontWeight.normal, height: 1.8),
