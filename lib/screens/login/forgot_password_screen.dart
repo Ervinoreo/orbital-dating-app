@@ -44,7 +44,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.deepPurple[200],
+          backgroundColor: Colors.orange[300],
           elevation: 0,
         ),
         body: Column(
@@ -76,7 +76,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 passwordReset();
               },
               child: Text('Reset Password'),
-              color: Colors.deepPurple[200],
+              color: Colors.orange[300],
             )
           ],
         ));
