@@ -11,8 +11,6 @@ import 'bloc/swipe/swipe_bloc.dart';
 import 'firebase_options.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'models/models.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -30,8 +28,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-              create: (_) =>
-                  SwipeBloc()..add(LoadUsersEvent(users: UserUI.users))),
+              create: (context) =>
+                  SwipeBloc(databaseRepository: DatabaseRepository())),
           BlocProvider<OnboardingBloc>(
             create: (_) => OnboardingBloc(
               databaseRepository: DatabaseRepository(),
