@@ -47,6 +47,7 @@ class HomeScreen extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (state is SwipeLoaded) {
+          var userCount = state.users.length;
           return Column(
             children: [
               InkWell(
@@ -59,7 +60,9 @@ class HomeScreen extends StatelessWidget {
                   feedback: UserCard(
                     user: state.users[0],
                   ),
-                  childWhenDragging: UserCard(user: state.users[1]),
+                  childWhenDragging: (userCount > 1)
+                      ? UserCard(user: state.users[1])
+                      : Container(),
                   onDragEnd: (drag) {
                     if (drag.velocity.pixelsPerSecond.dx < 0) {
                       context.read<SwipeBloc>()
@@ -116,6 +119,14 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ],
+          );
+        }
+        if (state is SwipeError) {
+          return Center(
+            child: Text(
+              'There aren\'t any more users.',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
           );
         } else {
           return Text('Something went wrong!');
