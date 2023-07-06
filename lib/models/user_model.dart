@@ -11,6 +11,9 @@ class UserUI extends Equatable {
   final List<dynamic> interests;
   final String gender;
   final String location;
+  final List<String>? swipeLeft;
+  final List<String>? swipeRight;
+  final List<String>? matches;
 
   const UserUI({
     required this.id,
@@ -22,23 +25,48 @@ class UserUI extends Equatable {
     required this.interests,
     required this.gender,
     required this.location,
+    this.swipeLeft,
+    this.swipeRight,
+    this.matches,
   });
 
   @override
-  List<Object?> get props =>
-      [id, name, age, imageUrls, bio, jobTitle, interests, gender, location];
+  List<Object?> get props => [
+        id,
+        name,
+        age,
+        imageUrls,
+        bio,
+        jobTitle,
+        interests,
+        gender,
+        location,
+        swipeLeft,
+        swipeRight,
+        matches,
+      ];
 
   static UserUI fromSnapshot(DocumentSnapshot snap) {
     UserUI user = UserUI(
-        id: snap.id,
-        name: snap['name'],
-        age: snap['age'],
-        imageUrls: snap['imageUrls'],
-        bio: snap['bio'],
-        jobTitle: snap['jobTitle'],
-        interests: snap['interests'],
-        gender: snap['gender'],
-        location: snap['location']);
+      id: snap.id,
+      name: snap['name'],
+      age: snap['age'],
+      imageUrls: snap['imageUrls'],
+      bio: snap['bio'],
+      jobTitle: snap['jobTitle'],
+      interests: snap['interests'],
+      gender: snap['gender'],
+      location: snap['location'],
+      swipeLeft: (snap['swipeLeft'] as List)
+          .map((swipeLeft) => swipeLeft as String)
+          .toList(),
+      swipeRight: (snap['swipeRight'] as List)
+          .map((swipeRight) => swipeRight as String)
+          .toList(),
+      matches: (snap['matches'] as List)
+          .map((matches) => matches as String)
+          .toList(),
+    );
 
     return user;
   }
@@ -53,6 +81,9 @@ class UserUI extends Equatable {
       'bio': bio,
       'jobTitle': jobTitle,
       'location': location,
+      'swipeLeft': swipeLeft,
+      'swipeRight': swipeRight,
+      'matches': matches,
     };
   }
 
@@ -66,6 +97,9 @@ class UserUI extends Equatable {
     String? bio,
     String? jobTitle,
     String? location,
+    List<String>? swipeLeft,
+    List<String>? swipeRight,
+    List<String>? matches,
   }) {
     return UserUI(
       id: id ?? this.id,
@@ -77,6 +111,9 @@ class UserUI extends Equatable {
       interests: interests ?? this.interests,
       gender: gender ?? this.gender,
       location: location ?? this.location,
+      swipeLeft: swipeLeft ?? this.swipeLeft,
+      swipeRight: swipeRight ?? this.swipeRight,
+      matches: matches ?? this.matches,
     );
   }
 

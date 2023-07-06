@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/models/user_model.dart';
 import 'package:dating_app/repositories/storage/storage_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import 'base_database_repository.dart';
 
@@ -50,5 +49,16 @@ class DatabaseRepository extends BaseDatabaseRepository {
         .doc(user.id)
         .update(user.toMap())
         .then((value) => print('user document updated'));
+  }
+
+  @override
+  Stream<List<UserUI>> getUsers(String userId, String gender) {
+    return _firebaseFirestore
+        .collection('users')
+        .where('gender', isNotEqualTo: gender)
+        .snapshots()
+        .map((snap) {
+      return snap.docs.map((doc) => UserUI.fromSnapshot(doc)).toList();
+    });
   }
 }

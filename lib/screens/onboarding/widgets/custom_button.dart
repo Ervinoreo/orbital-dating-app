@@ -21,7 +21,11 @@ class CustomButton extends StatelessWidget {
             style: ElevatedButton.styleFrom(
                 elevation: 0, backgroundColor: Colors.transparent),
             onPressed: () {
-              tabController.animateTo(tabController.index + 1);
+              if (tabController.index == 4) {
+                Navigator.pushNamed(context, '/');
+              } else {
+                tabController.animateTo(tabController.index + 1);
+              }
             },
             child: Container(
                 width: double.infinity,

@@ -13,21 +13,21 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.datingApp</string>
+	<string>com.ervinma.datingApp.orbital</string>
 	<key>PROJECT_ID</key>
 	<string>datingapplogin-f9528</string>
 	<key>STORAGE_BUCKET</key>
 	<string>datingapplogin-f9528.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:296863879968:ios:8cf21063f6c28fc7f2fd45</string>
 </dict>
