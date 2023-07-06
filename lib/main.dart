@@ -1,8 +1,9 @@
+import 'package:dating_app/bloc/profile/profile_bloc.dart';
 import 'package:dating_app/config/app_router.dart';
 import 'package:dating_app/repositories/database/database_repository.dart';
 import 'package:dating_app/repositories/storage/storage_repository.dart';
 import 'package:dating_app/screens/login/auth_page.dart';
-import 'package:dating_app/screens/screens.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'bloc/onboarding/onboarding_bloc.dart';
@@ -36,7 +37,12 @@ class MyApp extends StatelessWidget {
               databaseRepository: DatabaseRepository(),
               storageRepository: StorageRepository(),
             )..add(StartOnboarding()),
-          )
+          ),
+          BlocProvider(
+              create: (context) =>
+                  ProfileBloc(databaseRepository: DatabaseRepository())
+                    ..add(LoadProfile(
+                        userId: FirebaseAuth.instance.currentUser!.uid)))
         ],
         child: MaterialApp(
           title: 'Flutter Demo',

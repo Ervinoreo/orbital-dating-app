@@ -1,6 +1,6 @@
 import 'package:dating_app/models/user_model.dart';
+import 'package:dating_app/screens/widgets/user_image.dart';
 import 'package:flutter/material.dart';
-import 'widgets.dart';
 
 class UserCard extends StatelessWidget {
   final UserUI user;
@@ -21,21 +21,20 @@ class UserCard extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             child: Stack(
               children: [
+                UserImage.large(
+                  url: user.imageUrls[0],
+                ),
                 Container(
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(user.imageUrls[0]),
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(200, 0, 0, 0),
+                        Color.fromARGB(0, 0, 0, 0)
+                      ],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
                     ),
-                    borderRadius: BorderRadius.circular(5.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 4,
-                        blurRadius: 4,
-                        offset: Offset(3, 3),
-                      )
-                    ],
                   ),
                 ),
                 Positioned(
@@ -55,26 +54,33 @@ class UserCard extends StatelessWidget {
                             color: Colors.orange[900],
                             fontSize: 20,
                           )),
-                      Row(
-                        children: [
-                          UserImageSmall(url: user.imageUrls[1]),
-                          UserImageSmall(url: user.imageUrls[2]),
-                          UserImageSmall(url: user.imageUrls[3]),
-                          UserImageSmall(url: user.imageUrls[4]),
-                          SizedBox(width: 10),
-                          Container(
-                              width: 35,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                              child: Icon(
-                                Icons.info_outline,
-                                size: 25,
-                                color: Colors.orange[900],
-                              ))
-                        ],
+                      SizedBox(
+                        height: 70,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: user.imageUrls.length + 1,
+                            itemBuilder: (builder, index) {
+                              return (index < user.imageUrls.length)
+                                  ? UserImage.small(
+                                      url: user.imageUrls[index],
+                                      margin: const EdgeInsets.only(
+                                          top: 8, right: 8),
+                                    )
+                                  : Container(
+                                      width: 35,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.white,
+                                      ),
+                                      child: Icon(
+                                        Icons.info_outline,
+                                        size: 25,
+                                        color: Colors.orange[900],
+                                      ));
+                            }),
                       )
                     ],
                   ),
