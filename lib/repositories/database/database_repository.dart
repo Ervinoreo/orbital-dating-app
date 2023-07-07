@@ -25,18 +25,6 @@ class DatabaseRepository extends BaseDatabaseRepository {
     });
   }
 
-  // @override
-  // Future<String> createUser(UserUI user) async {
-  //   String documentId = await _firebaseFirestore
-  //       .collection('users')
-  //       .add(user.toMap())
-  //       .then((value) {
-  //     print('User added, ID: ${value.id}');
-  //     return value.id;
-  //   });
-  //   return documentId;
-  // }
-
   @override
   Future<void> createUser(UserUI user) async {
     await _firebaseFirestore.collection('users').doc(user.id).set(user.toMap());
@@ -51,14 +39,50 @@ class DatabaseRepository extends BaseDatabaseRepository {
         .then((value) => print('user document updated'));
   }
 
+  // @override
+  // Stream<List<UserUI>> getUsers(UserUI user) {
+  //   List<String> userFilter = List.from(user.swipeLeft!)
+  //     ..addAll(user.swipeRight!)
+  //     ..add(user.id!);
+  //   print('$userFilter');
+  //   return _firebaseFirestore
+  //       .collection('users')
+  //       .where('gender', isEqualTo: 'Male')
+  //       //.where(FieldPath.documentId, whereNotIn: userFilter)
+  //       .snapshots()
+  //       .map((snap) {
+  //     return snap.docs.map((doc) => UserUI.fromSnapshot(doc)).toList();
+  //   });
+  // }
+
   @override
-  Stream<List<UserUI>> getUsers(String userId, String gender) {
+  Stream<List<UserUI>> getUsers(UserUI user) {
+    List<String> userFilter = List.from(user.swipeLeft!)
+      ..addAll(user.swipeRight!)
+      ..add(user.id!);
     return _firebaseFirestore
         .collection('users')
-        .where('gender', isNotEqualTo: gender)
+        .where('gender', isEqualTo: 'Male')
         .snapshots()
         .map((snap) {
-      return snap.docs.map((doc) => UserUI.fromSnapshot(doc)).toList();
+      return snap.docs
+          .where((doc) => !userFilter.contains(doc.id))
+          .map((doc) => UserUI.fromSnapshot(doc))
+          .toList();
     });
+  }
+
+  @override
+  Future<void> updateUserSwipe(
+      String userId, String matchId, bool isSwipeRight) async {
+    if (isSwipeRight) {
+      await _firebaseFirestore.collection('users').doc(userId).update({
+        'swipeRight': FieldValue.arrayUnion([matchId])
+      });
+    } else {
+      await _firebaseFirestore.collection('users').doc(userId).update({
+        'swipeLeft': FieldValue.arrayUnion([matchId])
+      });
+    }
   }
 }
