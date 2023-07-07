@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:dating_app/repositories/database/database_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -10,6 +12,7 @@ part 'swipe_state.dart';
 
 class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
   final DatabaseRepository _databaseRepository;
+  StreamSubscription<User?>? _userSubscription;
 
   SwipeBloc({
     required DatabaseRepository databaseRepository,
@@ -20,27 +23,30 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
     on<SwipeLeftEvent>(_onSwipeLeft);
     on<SwipeRightEvent>(_onSwipeRight);
 
-    if (FirebaseAuth.instance.currentUser != null) {
-      add(LoadUsersEvent(userId: FirebaseAuth.instance.currentUser!.uid));
-    }
+    _userSubscription = FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+        _databaseRepository.getUser(user.uid).listen((inuser) {
+          add(LoadUsersEvent(user: inuser));
+        });
+      }
+    });
   }
 
   void _onLoadUsers(
     LoadUsersEvent event,
     Emitter<SwipeState> emit,
   ) {
-    _databaseRepository.getUsers(event.userId, 'Male').listen((users) {
-      print('$users');
+    _databaseRepository.getUsers(event.user).listen((users) {
+      print('Loading users: $users');
       add(UpdateHomeEvent(users: users));
     });
   }
 
   void _onUpdateHome(UpdateHomeEvent event, Emitter<SwipeState> emit) {
-    if (event.users == null) {
-      emit(SwipeError());
-    } else {
+    if (event.users!.isNotEmpty) {
       emit(SwipeLoaded(users: event.users!));
-      print('${event.users}');
+    } else {
+      emit(SwipeError());
     }
   }
 
@@ -52,6 +58,9 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
       final state = this.state as SwipeLoaded;
 
       List<UserUI> users = List.from(state.users)..remove(event.user);
+
+      _databaseRepository.updateUserSwipe(
+          FirebaseAuth.instance.currentUser!.uid, event.user.id!, false);
 
       if (users.isNotEmpty) {
         emit(SwipeLoaded(users: users));
@@ -69,11 +78,20 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
       final state = this.state as SwipeLoaded;
       List<UserUI> users = List.from(state.users)..remove(event.user);
 
+      _databaseRepository.updateUserSwipe(
+          FirebaseAuth.instance.currentUser!.uid, event.user.id!, true);
+
       if (users.isNotEmpty) {
         emit(SwipeLoaded(users: users));
       } else {
         emit(SwipeError());
       }
     }
+  }
+
+  @override
+  Future<void> close() {
+    _userSubscription?.cancel();
+    return super.close();
   }
 }

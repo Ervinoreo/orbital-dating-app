@@ -8,12 +8,12 @@ abstract class SwipeEvent extends Equatable {
 }
 
 class LoadUsersEvent extends SwipeEvent {
-  final String userId;
+  final UserUI user;
 
-  LoadUsersEvent({required this.userId});
+  LoadUsersEvent({required this.user});
 
   @override
-  List<Object?> get props => [userId];
+  List<Object?> get props => [user];
 }
 
 class UpdateHomeEvent extends SwipeEvent {
