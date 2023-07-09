@@ -85,4 +85,15 @@ class DatabaseRepository extends BaseDatabaseRepository {
       });
     }
   }
+
+  @override
+  Future<void> updateUserMatch(String userId, String matchId) async {
+    await _firebaseFirestore.collection('users').doc(userId).update({
+      'matches': FieldValue.arrayUnion([matchId])
+    });
+
+    await _firebaseFirestore.collection('users').doc(matchId).update({
+      'matches': FieldValue.arrayUnion([userId])
+    });
+  }
 }

@@ -73,15 +73,22 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
   void _onSwipeRight(
     SwipeRightEvent event,
     Emitter<SwipeState> emit,
-  ) {
+  ) async {
     if (state is SwipeLoaded) {
       final state = this.state as SwipeLoaded;
+      String userId = FirebaseAuth.instance.currentUser!.uid;
       List<UserUI> users = List.from(state.users)..remove(event.user);
 
-      _databaseRepository.updateUserSwipe(
+      await _databaseRepository.updateUserSwipe(
           FirebaseAuth.instance.currentUser!.uid, event.user.id!, true);
 
-      if (users.isNotEmpty) {
+      if (event.user.swipeRight!.contains(userId)) {
+        await _databaseRepository.updateUserMatch(
+          userId,
+          event.user.id!,
+        );
+        emit(SwipeMatched(user: event.user));
+      } else if (users.isNotEmpty) {
         emit(SwipeLoaded(users: users));
       } else {
         emit(SwipeError());
