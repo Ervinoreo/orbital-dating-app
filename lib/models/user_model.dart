@@ -46,26 +46,50 @@ class UserUI extends Equatable {
         matches
       ];
 
+  // static UserUI fromSnapshot(DocumentSnapshot snap) {
+  //   UserUI user = UserUI(
+  //     id: snap.id,
+  //     name: snap['name'],
+  //     age: snap['age'],
+  //     imageUrls: snap['imageUrls'],
+  //     bio: snap['bio'],
+  //     jobTitle: snap['jobTitle'],
+  //     interests: snap['interests'],
+  //     gender: snap['gender'],
+  //     location: snap['location'],
+  //     swipeLeft: (snap['swipeLeft'] as List)
+  //         .map((swipeLeft) => swipeLeft as String)
+  //         .toList(),
+  //     swipeRight: (snap['swipeRight'] as List)
+  //         .map((swipeRight) => swipeRight as String)
+  //         .toList(),
+  //     matches: (snap['matches'] as List)
+  //         .map((matches) => matches as String)
+  //         .toList(),
+  //   );
+
+  //   return user;
+  // }
   static UserUI fromSnapshot(DocumentSnapshot snap) {
     UserUI user = UserUI(
       id: snap.id,
-      name: snap['name'],
-      age: snap['age'],
-      imageUrls: snap['imageUrls'],
-      bio: snap['bio'],
-      jobTitle: snap['jobTitle'],
-      interests: snap['interests'],
-      gender: snap['gender'],
-      location: snap['location'],
-      swipeLeft: (snap['swipeLeft'] as List)
-          .map((swipeLeft) => swipeLeft as String)
-          .toList(),
-      swipeRight: (snap['swipeRight'] as List)
-          .map((swipeRight) => swipeRight as String)
-          .toList(),
-      matches: (snap['matches'] as List)
-          .map((matches) => matches as String)
-          .toList(),
+      name: snap['name'] ?? '',
+      age: snap['age'] ?? 0,
+      imageUrls: snap['imageUrls'] != null ? List.from(snap['imageUrls']) : [],
+      bio: snap['bio'] ?? '',
+      jobTitle: snap['jobTitle'] ?? '',
+      interests: snap['interests'] != null ? List.from(snap['interests']) : [],
+      gender: snap['gender'] ?? '',
+      location: snap['location'] ?? '',
+      swipeLeft: snap['swipeLeft'] != null
+          ? List<String>.from(snap['swipeLeft'] ?? [])
+          : [],
+      swipeRight: snap['swipeRight'] != null
+          ? List<String>.from(snap['swipeRight'] ?? [])
+          : [],
+      matches: snap['matches'] != null
+          ? List<String>.from(snap['matches'] ?? [])
+          : [],
     );
 
     return user;
