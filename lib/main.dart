@@ -2,6 +2,7 @@ import 'package:dating_app/bloc/match/match_bloc.dart';
 import 'package:dating_app/bloc/profile/profile_bloc.dart';
 import 'package:dating_app/config/app_router.dart';
 import 'package:dating_app/repositories/database/database_repository.dart';
+import 'package:dating_app/repositories/location/location_repository.dart';
 import 'package:dating_app/repositories/storage/storage_repository.dart';
 import 'package:dating_app/screens/login/auth_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
             create: (_) => OnboardingBloc(
               databaseRepository: DatabaseRepository(),
               storageRepository: StorageRepository(),
+              locationRepository: LocationRepository(),
             )..add(StartOnboarding()),
           ),
           BlocProvider(

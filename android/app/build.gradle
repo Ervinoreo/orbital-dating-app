@@ -71,6 +71,12 @@ flutter {
     source '../..'
 }
 
+android {
+    defaultConfig {
+        minSdkVersion 20
+    }
+}
+
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     
