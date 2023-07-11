@@ -1,3 +1,4 @@
+import 'package:dating_app/repositories/database/database_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -235,7 +236,8 @@ class SwipeMatchedHomeScreen extends StatelessWidget {
                 CircleAvatar(
                   radius: 45,
                   backgroundImage: NetworkImage(
-                      FirebaseAuth.instance.currentUser!.imageUrls[0]),
+                    state.user.imageUrls[0],
+                  ),
                 ),
                 CircleAvatar(
                   radius: 45,

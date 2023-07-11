@@ -1,6 +1,5 @@
 import 'package:dating_app/screens/onboarding/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class StartScreen extends StatelessWidget {
   final TabController tabController;

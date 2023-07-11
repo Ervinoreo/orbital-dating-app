@@ -38,13 +38,13 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
   ) {
     _databaseRepository.getUsers(event.user).listen((users) {
       print('Loading users: $users');
-      add(UpdateHomeEvent(users: users));
+      add(UpdateHomeEvent(users: users, user: event.user));
     });
   }
 
   void _onUpdateHome(UpdateHomeEvent event, Emitter<SwipeState> emit) {
     if (event.users!.isNotEmpty) {
-      emit(SwipeLoaded(users: event.users!));
+      emit(SwipeLoaded(users: event.users!, user: event.user));
     } else {
       emit(SwipeError());
     }
@@ -79,15 +79,11 @@ class SwipeBloc extends Bloc<SwipeEvent, SwipeState> {
       String userId = FirebaseAuth.instance.currentUser!.uid;
       List<UserUI> users = List.from(state.users)..remove(event.user);
 
-      await _databaseRepository.updateUserSwipe(
-          FirebaseAuth.instance.currentUser!.uid, event.user.id!, true);
+      await _databaseRepository.updateUserSwipe(userId, event.user.id!, true);
 
       if (event.user.swipeRight!.contains(userId)) {
-        await _databaseRepository.updateUserMatch(
-          userId,
-          event.user.id!,
-        );
-        emit(SwipeMatched(user: event.user));
+        await _databaseRepository.updateUserMatch(userId, event.user.id!);
+        emit(SwipeLoaded(users: users));
       } else if (users.isNotEmpty) {
         emit(SwipeLoaded(users: users));
       } else {

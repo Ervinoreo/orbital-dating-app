@@ -18,11 +18,12 @@ class LoadUsersEvent extends SwipeEvent {
 
 class UpdateHomeEvent extends SwipeEvent {
   final List<UserUI>? users;
+  final UserUI user;
 
-  UpdateHomeEvent({required this.users});
+  UpdateHomeEvent({required this.users, required this.user});
 
   @override
-  List<Object?> get props => [users];
+  List<Object?> get props => [users, user];
 }
 
 class SwipeLeftEvent extends SwipeEvent {

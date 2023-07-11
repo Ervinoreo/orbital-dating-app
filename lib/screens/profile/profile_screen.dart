@@ -92,7 +92,7 @@ class ProfileScreen extends StatelessWidget {
                               }),
                         ),
                         TitleWithIcon(title: 'Location', icon: Icons.edit),
-                        Text(state.user.location),
+                        Text(state.user.location!.name),
                         TitleWithIcon(title: 'Interest', icon: Icons.edit),
                         Row(
                           children: [

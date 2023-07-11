@@ -1,9 +1,11 @@
 import 'package:dating_app/screens/onboarding/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import '../../../bloc/onboarding/onboarding_bloc.dart';
+import '../../../models/location_model.dart';
 
 class LocationScreen extends StatelessWidget {
   final TabController tabController;
@@ -39,10 +41,45 @@ class LocationScreen extends StatelessWidget {
                       tabController: tabController,
                       text: 'Enter Your Location',
                       onChanged: (value) {
-                        context.read<OnboardingBloc>().add(UpdateUser(
-                            user: state.user.copyWith(location: value)));
+                        Location location =
+                            state.user.location!.copyWith(name: value);
+                        context.read<OnboardingBloc>().add(
+                              UpdateUserLocation(location: location),
+                            );
+                      },
+                      onFocusChanged: (hasFocus) {
+                        if (hasFocus) {
+                          return;
+                        } else {
+                          context.read<OnboardingBloc>().add(
+                                UpdateUserLocation(
+                                  isUpdateComplete: true,
+                                  location: state.user.location,
+                                ),
+                              );
+                        }
                       },
                     ),
+                    SizedBox(height: 10),
+                    Expanded(
+                      child: GoogleMap(
+                        myLocationEnabled: true,
+                        myLocationButtonEnabled: false,
+                        onMapCreated: (GoogleMapController controller) {
+                          context.read<OnboardingBloc>().add(
+                                UpdateUserLocation(controller: controller),
+                              );
+                        },
+                        initialCameraPosition: CameraPosition(
+                          zoom: 10,
+                          target: LatLng(
+                            state.user.location!.lat,
+                            state.user.location!.lon,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
                   ],
                 ),
                 Column(
