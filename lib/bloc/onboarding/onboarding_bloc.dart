@@ -48,7 +48,10 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
         jobTitle: '',
         interests: [],
         gender: '',
-        location: '');
+        location: '',
+        matches: [],
+        swipeLeft: [],
+        swipeRight: []);
     await _databaseRepository.createUser(user);
     emit(OnboardingLoaded(user: user));
   }

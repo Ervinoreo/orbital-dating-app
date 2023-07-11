@@ -1,3 +1,4 @@
+import 'package:dating_app/bloc/match/match_bloc.dart';
 import 'package:dating_app/bloc/profile/profile_bloc.dart';
 import 'package:dating_app/config/app_router.dart';
 import 'package:dating_app/repositories/database/database_repository.dart';
@@ -40,7 +41,10 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   ProfileBloc(databaseRepository: DatabaseRepository())
                     ..add(LoadProfile(
-                        userId: FirebaseAuth.instance.currentUser!.uid)))
+                        userId: FirebaseAuth.instance.currentUser!.uid))),
+          BlocProvider(
+              create: (context) =>
+                  MatchBloc(databaseRepository: DatabaseRepository()))
         ],
         child: MaterialApp(
           title: 'Flutter Demo',

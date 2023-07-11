@@ -17,7 +17,7 @@ class AppRouter {
       case AuthPage.routeName:
         return AuthPage.route();
       case ChatScreen.routeName:
-        return ChatScreen.route(userMatch: settings.arguments as UserMatch);
+        return ChatScreen.route(userMatch: settings.arguments as Match);
       case OnboardingScreen.routeName:
         return OnboardingScreen.route();
       case MatchesScreen.routeName:

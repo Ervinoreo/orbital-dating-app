@@ -1,17 +1,17 @@
-import 'package:dating_app/models/user_match_model.dart';
+import 'package:dating_app/models/match_model.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
   static const String routeName = '/chat';
 
-  static Route route({required UserMatch userMatch}) {
+  static Route route({required Match userMatch}) {
     return MaterialPageRoute(
       builder: (_) => ChatScreen(userMatch: userMatch),
       settings: RouteSettings(name: routeName),
     );
   }
 
-  final UserMatch userMatch;
+  final Match userMatch;
 
   const ChatScreen({required this.userMatch});
 
