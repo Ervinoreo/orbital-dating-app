@@ -1,84 +1,80 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'user_model.dart';
 
 import 'models.dart';
 
-class UserMatch extends Equatable {
-  final int id;
-  final int userId;
+class Match extends Equatable {
+  final String userId;
   final UserUI matchedUser;
   final List<Chat>? chat;
 
-  const UserMatch({
-    required this.id,
+  const Match({
     required this.userId,
     required this.matchedUser,
-    required this.chat,
+    this.chat,
   });
 
-  @override
-  List<Object?> get props => [id, userId, matchedUser];
+  static Match fromSnapshot(DocumentSnapshot snap, String userId) {
+    Match match = Match(userId: userId, matchedUser: UserUI.fromSnapshot(snap));
+    return match;
+  }
 
-  static List<UserMatch> matches = [
-    UserMatch(
-      id: 1,
-      userId: 1,
+  @override
+  List<Object?> get props => [userId, matchedUser, chat];
+
+  static List<Match> matches = [
+    Match(
+      userId: '1',
       matchedUser: UserUI.users[1],
       chat: Chat.chats
           .where((chat) => chat.userId == 1 && chat.matchedUserId == 2)
           .toList(),
     ),
-    UserMatch(
-      id: 2,
-      userId: 1,
+    Match(
+      userId: '1',
       matchedUser: UserUI.users[2],
       chat: Chat.chats
           .where((chat) => chat.userId == 1 && chat.matchedUserId == 3)
           .toList(),
     ),
-    UserMatch(
-      id: 3,
-      userId: 1,
+    Match(
+      userId: '1',
       matchedUser: UserUI.users[3],
       chat: Chat.chats
           .where((chat) => chat.userId == 1 && chat.matchedUserId == 4)
           .toList(),
     ),
-    UserMatch(
-      id: 4,
-      userId: 1,
+    Match(
+      userId: '1',
       matchedUser: UserUI.users[4],
       chat: Chat.chats
           .where((chat) => chat.userId == 1 && chat.matchedUserId == 5)
           .toList(),
     ),
-    UserMatch(
-      id: 5,
-      userId: 1,
+    Match(
+      userId: '1',
       matchedUser: UserUI.users[5],
       chat: Chat.chats
           .where((chat) => chat.userId == 1 && chat.matchedUserId == 6)
           .toList(),
     ),
-    UserMatch(
-      id: 6,
-      userId: 1,
+    Match(
+      userId: '1',
       matchedUser: UserUI.users[6],
       chat: Chat.chats
           .where((chat) => chat.userId == 1 && chat.matchedUserId == 7)
           .toList(),
     ),
-    UserMatch(
-      id: 7,
-      userId: 1,
+    Match(
+      userId: '1',
       matchedUser: UserUI.users[7],
       chat: Chat.chats
           .where((chat) => chat.userId == 1 && chat.matchedUserId == 8)
           .toList(),
     ),
-    UserMatch(
-      id: 8,
-      userId: 1,
+    Match(
+      userId: '1',
       matchedUser: UserUI.users[8],
       chat: Chat.chats
           .where((chat) => chat.userId == 1 && chat.matchedUserId == 9)

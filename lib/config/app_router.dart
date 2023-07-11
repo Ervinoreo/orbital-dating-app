@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '/models/models.dart';
 import '/screens/screens.dart';
+import '/models/match_model.dart';
 
 import 'package:dating_app/screens/login/auth_page.dart';
 
@@ -17,7 +18,7 @@ class AppRouter {
       case AuthPage.routeName:
         return AuthPage.route();
       case ChatScreen.routeName:
-        return ChatScreen.route(userMatch: settings.arguments as UserMatch);
+        return ChatScreen.route(userMatch: settings.arguments as Match);
       case OnboardingScreen.routeName:
         return OnboardingScreen.route();
       case MatchesScreen.routeName:
