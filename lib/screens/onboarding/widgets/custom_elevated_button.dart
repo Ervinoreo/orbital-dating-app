@@ -8,12 +8,14 @@ class CustomElevatedButton extends StatelessWidget {
     required this.endColor,
     required this.textColor,
     this.onPressed,
+    this.width = 200,
   }) : super(key: key);
 
   final String text;
   final Color beginColor;
   final Color endColor;
   final Color textColor;
+  final double width;
   final Function()? onPressed;
 
   @override
@@ -41,7 +43,7 @@ class CustomElevatedButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          fixedSize: const Size(200, 40),
+          fixedSize: Size(width, 40),
         ),
         child: Container(
           width: double.infinity,

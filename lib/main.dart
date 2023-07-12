@@ -40,10 +40,11 @@ class MyApp extends StatelessWidget {
             )..add(StartOnboarding()),
           ),
           BlocProvider(
-              create: (context) =>
-                  ProfileBloc(databaseRepository: DatabaseRepository())
-                    ..add(LoadProfile(
-                        userId: FirebaseAuth.instance.currentUser!.uid))),
+              create: (context) => ProfileBloc(
+                  databaseRepository: DatabaseRepository(),
+                  locationRepository: LocationRepository())
+                ..add(LoadProfile(
+                    userId: FirebaseAuth.instance.currentUser!.uid))),
           BlocProvider(
               create: (context) =>
                   MatchBloc(databaseRepository: DatabaseRepository()))

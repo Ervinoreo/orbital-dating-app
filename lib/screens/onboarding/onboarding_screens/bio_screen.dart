@@ -34,7 +34,6 @@ class Biography extends StatelessWidget {
                       tabController: tabController,
                       text: 'Describe Yourself In A Few Words'),
                   CustomTextField(
-                    tabController: tabController,
                     text: 'Enter Your Bio',
                     onChanged: (value) {
                       context.read<OnboardingBloc>().add(

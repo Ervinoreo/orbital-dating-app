@@ -41,13 +41,12 @@ class LocationTab extends StatelessWidget {
                         text: 'Where Are You?',
                       ),
                       CustomTextField(
-                        tabController: tabController,
                         text: 'Enter Your Location',
                         onChanged: (value) {
                           Location location =
                               state.user.location!.copyWith(name: value);
                           context.read<OnboardingBloc>().add(
-                                UpdateUserLocation(location: location),
+                                SetUserLocation(location: location),
                               );
                         },
                         onFocusChanged: (hasFocus) {
@@ -55,7 +54,7 @@ class LocationTab extends StatelessWidget {
                             return;
                           } else {
                             context.read<OnboardingBloc>().add(
-                                  UpdateUserLocation(
+                                  SetUserLocation(
                                     isUpdateComplete: true,
                                     location: state.user.location,
                                   ),
@@ -70,7 +69,7 @@ class LocationTab extends StatelessWidget {
                           myLocationButtonEnabled: false,
                           onMapCreated: (GoogleMapController controller) {
                             context.read<OnboardingBloc>().add(
-                                  UpdateUserLocation(controller: controller),
+                                  SetUserLocation(controller: controller),
                                 );
                           },
                           initialCameraPosition: CameraPosition(

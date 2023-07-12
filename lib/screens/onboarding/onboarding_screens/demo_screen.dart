@@ -62,7 +62,6 @@ class DemographyScreen extends StatelessWidget {
                       text: 'What\'s Your Age?',
                     ),
                     CustomTextField(
-                      tabController: tabController,
                       text: 'ENTER YOUR AGE',
                       onChanged: (value) {
                         context.read<OnboardingBloc>().add(UpdateUser(
