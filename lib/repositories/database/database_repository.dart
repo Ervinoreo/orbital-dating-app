@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/models/models.dart';
 import 'package:dating_app/repositories/storage/storage_repository.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'base_database_repository.dart';
@@ -63,7 +64,7 @@ class DatabaseRepository extends BaseDatabaseRepository {
     //   ..add(user.id!);
     return _firebaseFirestore
         .collection('users')
-        .where('gender', isEqualTo: _selectGender(user))
+        .where('gender', whereIn: _selectGender(user))
         .snapshots()
         .map((snap) {
       return snap.docs.map((doc) => UserUI.fromSnapshot(doc)).toList();
@@ -72,24 +73,46 @@ class DatabaseRepository extends BaseDatabaseRepository {
 
   @override
   Stream<List<UserUI>> getUsersToSwipe(UserUI user) {
-    return Rx.combineLatest2(getUser(user.id!), getUsers(user),
-        (UserUI currentUser, List<UserUI> users) {
-      return users.where((user) {
-        if (currentUser.swipeLeft!.contains(user.id)) {
-          return false;
-        } else if (currentUser.swipeRight!.contains(user.id)) {
-          return false;
-        } else if (currentUser.matches!.contains(user.id)) {
-          return false;
-        } else {
-          return true;
-        }
-      }).toList();
-    });
+    return Rx.combineLatest2(
+      getUser(user.id!),
+      getUsers(user),
+      (
+        UserUI currentUser,
+        List<UserUI> users,
+      ) {
+        return users.where(
+          (user) {
+            bool isCurrentUser = user.id == currentUser.id;
+            bool wasSwipedLeft = currentUser.swipeLeft!.contains(user.id);
+            bool wasSwipedRight = currentUser.swipeRight!.contains(user.id);
+            bool isMatch = currentUser.matches!.contains(user.id);
+
+            bool isWithinAgeRange =
+                user.age >= currentUser.ageRangePreference![0] &&
+                    user.age <= currentUser.ageRangePreference![1];
+
+            bool isWithinDistance = _getDistance(currentUser, user) <=
+                currentUser.distancePreference;
+
+            if (isCurrentUser) return false;
+            if (wasSwipedLeft) return false;
+            if (wasSwipedRight) return false;
+            if (isMatch) return false;
+            if (!isWithinAgeRange) return false;
+            if (!isWithinDistance) return false;
+
+            return true;
+          },
+        ).toList();
+      },
+    );
   }
 
   _selectGender(UserUI user) {
-    return (user.gender == 'Female') ? 'Male' : 'Female';
+    if (user.genderPreference == null) {
+      return ['Male', 'Female'];
+    }
+    return user.genderPreference;
   }
 
   @override
@@ -137,5 +160,19 @@ class DatabaseRepository extends BaseDatabaseRepository {
     //       .map((doc) => Match.fromSnapshot(doc, user.id!))
     //       .toList();
     // });
+  }
+
+  _getDistance(UserUI currentUser, UserUI user) {
+    GeolocatorPlatform geolocator = GeolocatorPlatform.instance;
+    var distanceInKm = geolocator.distanceBetween(
+          currentUser.location!.lat.toDouble(),
+          currentUser.location!.lon.toDouble(),
+          user.location!.lat.toDouble(),
+          user.location!.lon.toDouble(),
+        ) ~/
+        1000;
+    print(
+        'Distance in KM between ${currentUser.name} & ${user.name}: $distanceInKm');
+    return distanceInKm;
   }
 }

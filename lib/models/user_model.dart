@@ -16,6 +16,9 @@ class UserUI extends Equatable {
   final List<String>? swipeLeft;
   final List<String>? swipeRight;
   final List<String>? matches;
+  final List<String>? genderPreference;
+  final List<int>? ageRangePreference;
+  final int? distancePreference;
 
   const UserUI({
     this.id,
@@ -30,6 +33,9 @@ class UserUI extends Equatable {
     this.swipeLeft,
     this.swipeRight,
     this.matches,
+    this.genderPreference,
+    this.ageRangePreference,
+    this.distancePreference,
   });
 
   @override
@@ -46,9 +52,33 @@ class UserUI extends Equatable {
         swipeLeft,
         swipeRight,
         matches,
+        genderPreference,
+        ageRangePreference,
+        distancePreference,
       ];
 
   static UserUI fromSnapshot(DocumentSnapshot snap) {
+    var data = snap.data() as Map<String, dynamic>?;
+
+    List<String> userGenderPreference = [''];
+    List<int> userAgeRangePreference = [];
+    int userDistancePreference = 10;
+
+    if (data != null) {
+      userGenderPreference = (data['genderPreference'] == null)
+          ? ['Male']
+          : (data['genderPreference'] as List)
+              .map((gender) => gender as String)
+              .toList();
+      userAgeRangePreference = (data['ageRangePreference'] == null)
+          ? [19, 40]
+          : (data['ageRangePreference'] as List)
+              .map((age) => age as int)
+              .toList();
+      userDistancePreference = (data['distancePreference'] == null)
+          ? 30
+          : data['distancePreference'];
+    }
     UserUI user = UserUI(
       id: snap.id,
       name: snap['name'] ?? '',
@@ -68,6 +98,9 @@ class UserUI extends Equatable {
       matches: snap['matches'] != null
           ? List<String>.from(snap['matches'] ?? [])
           : [],
+      genderPreference: userGenderPreference,
+      ageRangePreference: userAgeRangePreference,
+      distancePreference: userDistancePreference,
     );
     return user;
   }
@@ -85,6 +118,9 @@ class UserUI extends Equatable {
       'swipeLeft': swipeLeft,
       'swipeRight': swipeRight,
       'matches': matches,
+      'genderPreference': genderPreference,
+      'ageRangePreference': ageRangePreference,
+      'distancePreference': distancePreference,
     };
   }
 
@@ -101,6 +137,9 @@ class UserUI extends Equatable {
     List<String>? swipeLeft,
     List<String>? swipeRight,
     List<String>? matches,
+    List<String>? genderPreference,
+    List<int>? ageRangePreference,
+    int? distancePreference,
   }) {
     return UserUI(
       id: id ?? this.id,
@@ -115,6 +154,9 @@ class UserUI extends Equatable {
       swipeLeft: swipeLeft ?? this.swipeLeft,
       swipeRight: swipeRight ?? this.swipeRight,
       matches: matches ?? this.matches,
+      genderPreference: genderPreference ?? this.genderPreference,
+      ageRangePreference: ageRangePreference ?? this.ageRangePreference,
+      distancePreference: distancePreference ?? this.distancePreference,
     );
   }
 

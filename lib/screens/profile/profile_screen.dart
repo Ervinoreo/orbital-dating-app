@@ -32,9 +32,9 @@ class ProfileScreen extends StatelessWidget {
                     Navigator.pushNamed(context, '/matches');
                   }),
               IconButton(
-                  icon: Icon(Icons.person),
+                  icon: Icon(Icons.settings),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/profile');
+                    Navigator.pushNamed(context, '/settings');
                   }),
             ]),
         body: SingleChildScrollView(

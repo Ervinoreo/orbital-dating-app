@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../screens/settings/settings_screen.dart';
 import '/models/models.dart';
 import '/screens/screens.dart';
 
@@ -28,6 +29,8 @@ class AppRouter {
         return MatchesScreen.route();
       case ProfileScreen.routeName:
         return ProfileScreen.route();
+      case SettingsScreen.routeName:
+        return SettingsScreen.route();
       default:
         return _errorRoute();
     }

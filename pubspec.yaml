@@ -50,6 +50,7 @@ dependencies:
   cloud_firestore: ^4.8.1
   rxdart: ^0.27.3
   google_maps_flutter: ^2.3.1
+  geolocator: ^9.0.2
 
 dev_dependencies:
   flutter_test:
