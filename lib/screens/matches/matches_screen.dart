@@ -1,5 +1,6 @@
 import 'package:dating_app/bloc/match/match_bloc.dart';
 import 'package:dating_app/repositories/database/database_repository.dart';
+import 'package:dating_app/screens/chat/chat_screen.dart';
 import 'package:dating_app/screens/onboarding/widgets/custom_elevated_button.dart';
 import 'package:dating_app/screens/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -42,10 +43,12 @@ class MatchesScreen extends StatelessWidget {
             }
 
             if (state is MatchLoaded) {
-              final inactiveMatches =
-                  state.matches.where((match) => match.chat == null).toList();
-              final activeMatches =
-                  state.matches.where((match) => match.chat != null).toList();
+              final inactiveMatches = state.matches
+                  .where((match) => match.chat.messages.length == 0)
+                  .toList();
+              final activeMatches = state.matches
+                  .where((match) => match.chat.messages.length > 0)
+                  .toList();
               return SingleChildScrollView(
                   child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -55,7 +58,12 @@ class MatchesScreen extends StatelessWidget {
                     Text(
                       'Your Likes',
                     ),
-                    MatchesList(inactiveMatches: inactiveMatches),
+                    inactiveMatches.length == 0
+                        ? Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Text('Go back to swiping'),
+                          )
+                        : MatchesList(inactiveMatches: inactiveMatches),
                     SizedBox(height: 10),
                     Text(
                       'Your Chats',
@@ -112,29 +120,32 @@ class ChatList extends StatelessWidget {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              Navigator.pushNamed(context, '/chat',
-                  arguments: activeMatches[index]);
+              Navigator.pushNamed(
+                context,
+                ChatScreen.routeName,
+                arguments: activeMatches[index],
+              );
             },
             child: Row(
               children: [
                 UserImageSmall(
                   height: 70,
                   width: 70,
-                  url: activeMatches[index].matchedUser.imageUrls[0],
+                  url: activeMatches[index].matchUser.imageUrls[0],
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      activeMatches[index].matchedUser.name,
+                      activeMatches[index].matchUser.name,
                     ),
                     SizedBox(height: 5),
                     Text(
-                      activeMatches[index].chat![0].messages[0].message,
+                      activeMatches[index].chat.messages[0].message,
                     ),
                     SizedBox(height: 5),
                     Text(
-                      activeMatches[index].chat![0].messages[0].timeString,
+                      activeMatches[index].chat.messages[0].timeString,
                     ),
                   ],
                 )
@@ -147,9 +158,9 @@ class ChatList extends StatelessWidget {
 
 class MatchesList extends StatelessWidget {
   const MatchesList({
-    super.key,
+    Key? key,
     required this.inactiveMatches,
-  });
+  }) : super(key: key);
 
   final List<Match> inactiveMatches;
 
@@ -158,20 +169,36 @@ class MatchesList extends StatelessWidget {
     return SizedBox(
       height: 100,
       child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          itemCount: inactiveMatches.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                UserImageSmall(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        itemCount: inactiveMatches.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                ChatScreen.routeName,
+                arguments: inactiveMatches[index],
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10.0, right: 10.0),
+              child: Column(
+                children: [
+                  UserImageSmall(
                     height: 70,
                     width: 70,
-                    url: inactiveMatches[index].matchedUser.imageUrls[0]),
-                Text(inactiveMatches[index].matchedUser.name)
-              ],
-            );
-          }),
+                    url: inactiveMatches[index].matchUser.imageUrls[0],
+                  ),
+                  Text(
+                    inactiveMatches[index].matchUser.name,
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

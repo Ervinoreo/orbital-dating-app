@@ -6,20 +6,27 @@ import 'models.dart';
 
 class Match extends Equatable {
   final String userId;
-  final UserUI matchedUser;
-  final List<Chat>? chat;
+  final UserUI matchUser;
+  final Chat chat;
 
   const Match({
     required this.userId,
-    required this.matchedUser,
-    this.chat,
+    required this.matchUser,
+    required this.chat,
   });
 
-  static Match fromSnapshot(DocumentSnapshot snap, String userId) {
-    Match match = Match(userId: userId, matchedUser: UserUI.fromSnapshot(snap));
-    return match;
+  Match copyWith({
+    String? userId,
+    UserUI? matchUser,
+    Chat? chat,
+  }) {
+    return Match(
+      userId: userId ?? this.userId,
+      matchUser: matchUser ?? this.matchUser,
+      chat: chat ?? this.chat,
+    );
   }
 
   @override
-  List<Object?> get props => [userId, matchedUser, chat];
+  List<Object?> get props => [userId, matchUser, chat];
 }

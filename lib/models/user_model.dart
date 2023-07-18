@@ -15,7 +15,7 @@ class UserUI extends Equatable {
   final Location? location;
   final List<String>? swipeLeft;
   final List<String>? swipeRight;
-  final List<String>? matches;
+  final List<Map<String, dynamic>>? matches;
   final List<String>? genderPreference;
   final List<int>? ageRangePreference;
   final int? distancePreference;
@@ -96,7 +96,7 @@ class UserUI extends Equatable {
           ? List<String>.from(snap['swipeRight'] ?? [])
           : [],
       matches: snap['matches'] != null
-          ? List<String>.from(snap['matches'] ?? [])
+          ? List<Map<String, dynamic>>.from(snap['matches'] ?? [])
           : [],
       genderPreference: userGenderPreference,
       ageRangePreference: userAgeRangePreference,
@@ -136,7 +136,7 @@ class UserUI extends Equatable {
     Location? location,
     List<String>? swipeLeft,
     List<String>? swipeRight,
-    List<String>? matches,
+    List<Map<String, dynamic>>? matches,
     List<String>? genderPreference,
     List<int>? ageRangePreference,
     int? distancePreference,
