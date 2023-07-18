@@ -27,33 +27,41 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-              create: (context) =>
-                  SwipeBloc(databaseRepository: DatabaseRepository())),
-          BlocProvider<OnboardingBloc>(
-            create: (_) => OnboardingBloc(
-              databaseRepository: DatabaseRepository(),
-              storageRepository: StorageRepository(),
-              locationRepository: LocationRepository(),
-            )..add(StartOnboarding()),
-          ),
-          BlocProvider(
-              create: (context) => ProfileBloc(
-                  databaseRepository: DatabaseRepository(),
-                  locationRepository: LocationRepository())
-                ..add(LoadProfile(
-                    userId: FirebaseAuth.instance.currentUser!.uid))),
-          BlocProvider(
-              create: (context) =>
-                  MatchBloc(databaseRepository: DatabaseRepository()))
-        ],
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(primaryColor: Colors.blue),
-          onGenerateRoute: AppRouter.onGenerateRoute,
-          initialRoute: AuthPage.routeName,
-        ));
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => DatabaseRepository(),
+        ),
+      ],
+      child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+                create: (context) =>
+                    SwipeBloc(databaseRepository: DatabaseRepository())),
+            BlocProvider<OnboardingBloc>(
+              create: (_) => OnboardingBloc(
+                databaseRepository: DatabaseRepository(),
+                storageRepository: StorageRepository(),
+                locationRepository: LocationRepository(),
+              )..add(StartOnboarding()),
+            ),
+            BlocProvider(
+                create: (context) => ProfileBloc(
+                    databaseRepository: DatabaseRepository(),
+                    locationRepository: LocationRepository())
+                  ..add(LoadProfile(
+                      userId: FirebaseAuth.instance.currentUser!.uid))),
+            BlocProvider(
+                create: (context) =>
+                    MatchBloc(databaseRepository: DatabaseRepository())),
+            //BlocProvider(create: (context) => ChatBloc(databaseRepository: DatabaseRepository())..add(LoadChat(match.chat.id))),
+          ],
+          child: MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(primaryColor: Colors.blue),
+            onGenerateRoute: AppRouter.onGenerateRoute,
+            initialRoute: AuthPage.routeName,
+          )),
+    );
   }
 }

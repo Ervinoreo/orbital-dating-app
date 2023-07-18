@@ -245,9 +245,8 @@ class _TextField extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-            ),
+            Text(title,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             SizedBox(height: 10),
             state.isEditingOn
                 ? CustomTextField(
@@ -282,9 +281,8 @@ class _Pictures extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Pictures',
-            ),
+            Text('Pictures',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 10),
               height: state.user.imageUrls.length > 0 ? 125 : 0,
@@ -326,9 +324,8 @@ class _Interests extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Interest',
-            ),
+            Text('Interest',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             Row(
               children: [
                 CustomTextContainer(text: 'MUSIC'),
@@ -364,6 +361,7 @@ class _Location extends StatelessWidget {
           children: [
             Text(
               'Location',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             state.isEditingOn

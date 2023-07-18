@@ -31,8 +31,16 @@ class MatchesScreen extends StatelessWidget {
             backgroundColor: Colors.orange[900],
             title: Text('Matches'),
             actions: [
-              IconButton(icon: Icon(Icons.message), onPressed: () {}),
-              IconButton(icon: Icon(Icons.person), onPressed: () {}),
+              IconButton(
+                  icon: Icon(Icons.message),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/matches');
+                  }),
+              IconButton(
+                  icon: Icon(Icons.person),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/profile');
+                  }),
             ]),
         body: BlocBuilder<MatchBloc, MatchState>(
           builder: (context, state) {
@@ -55,18 +63,20 @@ class MatchesScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Your Likes',
-                    ),
+                    Text('Your Likes',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                     inactiveMatches.length == 0
                         ? Padding(
-                            padding: const EdgeInsets.all(20.0),
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
                             child: Text('Go back to swiping'),
                           )
                         : MatchesList(inactiveMatches: inactiveMatches),
                     SizedBox(height: 10),
                     Text(
                       'Your Chats',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     ChatList(activeMatches: activeMatches)
                   ],
@@ -167,7 +177,7 @@ class MatchesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height: 110,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
@@ -192,6 +202,7 @@ class MatchesList extends StatelessWidget {
                   ),
                   Text(
                     inactiveMatches[index].matchUser.name,
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

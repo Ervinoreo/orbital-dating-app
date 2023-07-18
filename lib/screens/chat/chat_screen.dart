@@ -22,7 +22,7 @@ class ChatScreen extends StatelessWidget {
       settings: RouteSettings(name: routeName),
       builder: (context) => BlocProvider<ChatBloc>(
         create: (context) => ChatBloc(
-          databaseRepository: context.read<DatabaseRepository>(),
+          databaseRepository: DatabaseRepository(),
         )..add(LoadChat(match.chat.id)),
         child: ChatScreen(match: match),
       ),
@@ -55,25 +55,20 @@ class ChatScreen extends StatelessWidget {
             if (state is ChatLoaded) {
               return Column(
                 children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                        child: match.chat != null
-                            ? Container(
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: state.chat.messages.length,
-                                    itemBuilder: (context, index) {
-                                      List<Message> messages =
-                                          state.chat.messages;
-                                      return ListTile(
-                                          title: _Message(
-                                              message: messages[index].message,
-                                              isFromCurrentUser:
-                                                  messages[index].senderId ==
-                                                      FirebaseAuth.instance
-                                                          .currentUser!.uid));
-                                    }))
-                            : SizedBox()),
+                  ListView.builder(
+                    reverse: true,
+                    shrinkWrap: true,
+                    itemCount: state.chat.messages.length,
+                    itemBuilder: (context, index) {
+                      List<Message> messages = state.chat.messages;
+                      return ListTile(
+                        title: _Message(
+                          message: messages[index].message,
+                          isFromCurrentUser: messages[index].senderId ==
+                              FirebaseAuth.instance.currentUser!.uid,
+                        ),
+                      );
+                    },
                   ),
                   Spacer(),
                   _MessageInput(match: match)
@@ -150,13 +145,14 @@ class _Message extends StatelessWidget {
     AlignmentGeometry alignment =
         isFromCurrentUser ? Alignment.topRight : Alignment.topLeft;
 
+    Color color = isFromCurrentUser ? Colors.grey[200]! : Colors.orange[200]!;
+
     return Align(
       alignment: alignment,
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
-            color: Colors.grey[200]),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)), color: color),
         child: Text(message),
       ),
     );

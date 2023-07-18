@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/swipe/swipe_bloc.dart';
+import '../chat/chat_screen.dart';
 import '../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -176,14 +177,22 @@ class SwipeMatchedHomeScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          CustomElevatedButton(
-              text: 'Send A Message',
-              beginColor: Colors.white,
-              endColor: Colors.white,
-              textColor: Colors.black),
-          const SizedBox(
-            height: 10,
-          ),
+          // CustomElevatedButton(
+          //   text: 'Send A Message',
+          //   beginColor: Colors.white,
+          //   endColor: Colors.white,
+          //   textColor: Colors.black,
+          //   onPressed: () {
+          //     Navigator.pushNamed(
+          //       context,
+          //       ChatScreen.routeName,
+          //       arguments:
+          //     );
+          //   },
+          // ),
+          // const SizedBox(
+          //   height: 10,
+          // ),
           CustomElevatedButton(
             text: 'Back To Swiping',
             beginColor: Colors.white,
