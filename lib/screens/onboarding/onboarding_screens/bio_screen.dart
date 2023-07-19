@@ -41,7 +41,20 @@ class Biography extends StatelessWidget {
                     },
                   ),
                   SizedBox(
-                    height: 100,
+                    height: 50,
+                  ),
+                  CustomTextHeader(
+                      tabController: tabController,
+                      text: 'What do you do/study?'),
+                  CustomTextField(
+                    text: 'Enter Your Course Or Job',
+                    onChanged: (value) {
+                      context.read<OnboardingBloc>().add(UpdateUser(
+                          user: state.user.copyWith(jobTitle: value)));
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   CustomTextHeader(
                       tabController: tabController, text: 'What Do You Like?'),

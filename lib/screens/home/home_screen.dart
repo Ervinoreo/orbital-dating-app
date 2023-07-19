@@ -279,9 +279,9 @@ class SwipeLoadedHomeScreen extends StatelessWidget {
                       ..add(SwipeLeftEvent(user: state.users[0]));
                   },
                   child: ChoiceButton(
-                    width: 60,
-                    height: 60,
-                    size: 25,
+                    width: 70,
+                    height: 70,
+                    size: 30,
                     color: Color.fromRGBO(235, 106, 19, 1),
                     icon: Icons.clear_rounded,
                   ),
@@ -292,20 +292,20 @@ class SwipeLoadedHomeScreen extends StatelessWidget {
                       ..add(SwipeRightEvent(user: state.users[0]));
                   },
                   child: ChoiceButton(
-                    width: 80,
-                    height: 80,
+                    width: 70,
+                    height: 70,
                     size: 30,
                     color: Color.fromRGBO(235, 106, 19, 1),
                     icon: Icons.favorite,
                   ),
                 ),
-                ChoiceButton(
-                  width: 60,
-                  height: 60,
-                  size: 25,
-                  color: Color.fromRGBO(235, 106, 19, 1),
-                  icon: Icons.watch_later,
-                ),
+                // ChoiceButton(
+                //   width: 60,
+                //   height: 60,
+                //   size: 25,
+                //   color: Color.fromRGBO(235, 106, 19, 1),
+                //   icon: Icons.watch_later,
+                // ),
               ],
             ),
           ),

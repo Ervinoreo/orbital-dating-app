@@ -34,6 +34,17 @@ class DemographyScreen extends StatelessWidget {
                   children: [
                     CustomTextHeader(
                       tabController: tabController,
+                      text: 'What\'s Your Name?',
+                    ),
+                    CustomTextField(
+                      text: 'ENTER YOUR NAME',
+                      onChanged: (value) {
+                        context.read<OnboardingBloc>().add(
+                            UpdateUser(user: state.user.copyWith(name: value)));
+                      },
+                    ),
+                    CustomTextHeader(
+                      tabController: tabController,
                       text: 'What\'s Your Gender?',
                     ),
                     CustomCheckBox(
