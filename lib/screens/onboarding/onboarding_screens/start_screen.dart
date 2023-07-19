@@ -1,12 +1,16 @@
 import 'package:dating_app/screens/onboarding/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../bloc/onboarding/onboarding_bloc.dart';
+
 class StartScreen extends StatelessWidget {
   final TabController tabController;
+  final OnboardingLoaded state;
 
   const StartScreen({
     Key? key,
     required this.tabController,
+    required this.state,
   }) : super(key: key);
 
   @override
