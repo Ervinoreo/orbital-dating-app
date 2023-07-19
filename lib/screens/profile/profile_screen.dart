@@ -168,7 +168,19 @@ class ProfileScreen extends StatelessWidget {
                             },
                           ),
                           _Pictures(),
-                          _Interests(),
+                          //_Interests(),
+                          _TextField(
+                            title: 'Interests',
+                            value: state.user.interests,
+                            onChanged: (value) {
+                              context.read<ProfileBloc>().add(
+                                    UpdateUserProfile(
+                                      user:
+                                          state.user.copyWith(interests: value),
+                                    ),
+                                  );
+                            },
+                          ),
                           _Location(
                             title: 'Location',
                             value: state.user.location!.name,

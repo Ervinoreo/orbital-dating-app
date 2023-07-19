@@ -53,7 +53,7 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
         imageUrls: [],
         bio: '',
         jobTitle: '',
-        interests: [],
+        interests: '',
         gender: '',
         location: Location.initialLocation,
         matches: [],

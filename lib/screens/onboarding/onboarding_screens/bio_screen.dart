@@ -58,46 +58,53 @@ class Biography extends StatelessWidget {
                   ),
                   CustomTextHeader(
                       tabController: tabController, text: 'What Do You Like?'),
-                  Row(
-                    children: [
-                      CustomTextContainer(
-                        tabController: tabController,
-                        text: 'Music',
-                      ),
-                      CustomTextContainer(
-                        tabController: tabController,
-                        text: 'Economics',
-                      ),
-                      CustomTextContainer(
-                        tabController: tabController,
-                        text: 'Mathematics',
-                      ),
-                      CustomTextContainer(
-                        tabController: tabController,
-                        text: 'Politics',
-                      ),
-                    ],
+                  CustomTextField(
+                    text: 'Enter Your Interests',
+                    onChanged: (value) {
+                      context.read<OnboardingBloc>().add(UpdateUser(
+                          user: state.user.copyWith(interests: value)));
+                    },
                   ),
-                  Row(
-                    children: [
-                      CustomTextContainer(
-                        tabController: tabController,
-                        text: 'Art',
-                      ),
-                      CustomTextContainer(
-                        tabController: tabController,
-                        text: 'Hiking',
-                      ),
-                      CustomTextContainer(
-                        tabController: tabController,
-                        text: 'Drawing',
-                      ),
-                      CustomTextContainer(
-                        tabController: tabController,
-                        text: 'Eating',
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     CustomTextContainer(
+                  //       tabController: tabController,
+                  //       text: 'Music',
+                  //     ),
+                  //     CustomTextContainer(
+                  //       tabController: tabController,
+                  //       text: 'Economics',
+                  //     ),
+                  //     CustomTextContainer(
+                  //       tabController: tabController,
+                  //       text: 'Mathematics',
+                  //     ),
+                  //     CustomTextContainer(
+                  //       tabController: tabController,
+                  //       text: 'Politics',
+                  //     ),
+                  //   ],
+                  // ),
+                  // Row(
+                  //   children: [
+                  //     CustomTextContainer(
+                  //       tabController: tabController,
+                  //       text: 'Art',
+                  //     ),
+                  //     CustomTextContainer(
+                  //       tabController: tabController,
+                  //       text: 'Hiking',
+                  //     ),
+                  //     CustomTextContainer(
+                  //       tabController: tabController,
+                  //       text: 'Drawing',
+                  //     ),
+                  //     CustomTextContainer(
+                  //       tabController: tabController,
+                  //       text: 'Eating',
+                  //     ),
+                  //   ],
+                  //),
                 ]),
                 Column(
                   children: [

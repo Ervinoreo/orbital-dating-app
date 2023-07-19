@@ -46,38 +46,38 @@ class UserScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 60.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ChoiceButton(
-                          width: 60,
-                          height: 60,
-                          size: 25,
-                          color: Color.fromRGBO(235, 106, 19, 1),
-                          icon: Icons.clear_rounded,
-                        ),
-                        ChoiceButton(
-                          width: 80,
-                          height: 80,
-                          size: 30,
-                          color: Color.fromRGBO(235, 106, 19, 1),
-                          icon: Icons.favorite,
-                        ),
-                        ChoiceButton(
-                          width: 60,
-                          height: 60,
-                          size: 25,
-                          color: Color.fromRGBO(235, 106, 19, 1),
-                          icon: Icons.watch_later,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+                // Align(
+                //   alignment: Alignment.bottomCenter,
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(horizontal: 60.0),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //       children: [
+                //         ChoiceButton(
+                //           width: 80,
+                //           height: 80,
+                //           size: 30,
+                //           color: Color.fromRGBO(235, 106, 19, 1),
+                //           icon: Icons.clear_rounded,
+                //         ),
+                //         ChoiceButton(
+                //           width: 80,
+                //           height: 80,
+                //           size: 30,
+                //           color: Color.fromRGBO(235, 106, 19, 1),
+                //           icon: Icons.favorite,
+                //         ),
+                //         // ChoiceButton(
+                //         //   width: 60,
+                //         //   height: 60,
+                //         //   size: 25,
+                //         //   color: Color.fromRGBO(235, 106, 19, 1),
+                //         //   icon: Icons.watch_later,
+                //         // ),
+                //       ],
+                //     ),
+                //   ),
+                // )
               ],
             ),
           ),
@@ -129,29 +129,37 @@ class UserScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Row(
-                  children: user.interests
-                      .map(
-                        (interest) => Container(
-                          padding: EdgeInsets.all(5.0),
-                          margin: EdgeInsets.only(top: 5.0, right: 5.0),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              gradient: LinearGradient(colors: [
-                                Colors.orange[900]!,
-                                Colors.orange[300]!
-                              ])),
-                          child: Text(
-                            interest,
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.white),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                )
+                //   Row(
+                //     children: user.interests
+                //         .map(
+                //           (interest) => Container(
+                //             padding: EdgeInsets.all(5.0),
+                //             margin: EdgeInsets.only(top: 5.0, right: 5.0),
+                //             decoration: BoxDecoration(
+                //                 borderRadius: BorderRadius.circular(5.0),
+                //                 gradient: LinearGradient(colors: [
+                //                   Colors.orange[900]!,
+                //                   Colors.orange[300]!
+                //                 ])),
+                //             child: Text(
+                //               interest,
+                //               style: TextStyle(
+                //                   fontSize: 14,
+                //                   fontWeight: FontWeight.normal,
+                //                   color: Colors.white),
+                //             ),
+                //           ),
+                //         )
+                //         .toList(),
+                //   )
+                Text(
+                  '${user.interests}',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                    height: 2,
+                  ),
+                ),
               ],
             ),
           )
