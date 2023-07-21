@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
-import 'location_model.dart';
-
 class UserUI extends Equatable {
   final String? id;
   final String name;
@@ -12,13 +10,14 @@ class UserUI extends Equatable {
   final String interests;
   final String bio;
   final String jobTitle;
-  final Location? location;
+  // final Location? location;
+  final String? location;
   final List<String>? swipeLeft;
   final List<String>? swipeRight;
   final List<Map<String, dynamic>>? matches;
   final List<String>? genderPreference;
   final List<int>? ageRangePreference;
-  final int? distancePreference;
+  //final int? distancePreference;
 
   const UserUI({
     this.id,
@@ -35,7 +34,7 @@ class UserUI extends Equatable {
     this.matches,
     this.genderPreference,
     this.ageRangePreference,
-    this.distancePreference,
+    //this.distancePreference,
   });
 
   @override
@@ -54,7 +53,7 @@ class UserUI extends Equatable {
         matches,
         genderPreference,
         ageRangePreference,
-        distancePreference,
+        //distancePreference,
       ];
 
   static UserUI fromSnapshot(DocumentSnapshot snap) {
@@ -62,7 +61,7 @@ class UserUI extends Equatable {
 
     List<String> userGenderPreference = [''];
     List<int> userAgeRangePreference = [];
-    int userDistancePreference = 10;
+    //int userDistancePreference = 10;
 
     if (data != null) {
       userGenderPreference = (data['genderPreference'] == null)
@@ -75,9 +74,9 @@ class UserUI extends Equatable {
           : (data['ageRangePreference'] as List)
               .map((age) => age as int)
               .toList();
-      userDistancePreference = (data['distancePreference'] == null)
-          ? 30
-          : data['distancePreference'];
+      // userDistancePreference = (data['distancePreference'] == null)
+      //     ? 30
+      //     : data['distancePreference'];
     }
     UserUI user = UserUI(
       id: snap.id,
@@ -88,7 +87,7 @@ class UserUI extends Equatable {
       jobTitle: snap['jobTitle'] ?? '',
       interests: snap['interests'] ?? '',
       gender: snap['gender'] ?? '',
-      location: Location.fromJson(snap['location']),
+      location: snap['location'] ?? '',
       swipeLeft: snap['swipeLeft'] != null
           ? List<String>.from(snap['swipeLeft'] ?? [])
           : [],
@@ -100,7 +99,7 @@ class UserUI extends Equatable {
           : [],
       genderPreference: userGenderPreference,
       ageRangePreference: userAgeRangePreference,
-      distancePreference: userDistancePreference,
+      //distancePreference: userDistancePreference,
     );
     return user;
   }
@@ -114,13 +113,14 @@ class UserUI extends Equatable {
       'interests': interests,
       'bio': bio,
       'jobTitle': jobTitle,
-      'location': location!.toMap(),
+      // 'location': location!.toMap(),
+      'location': location,
       'swipeLeft': swipeLeft,
       'swipeRight': swipeRight,
       'matches': matches,
       'genderPreference': genderPreference,
       'ageRangePreference': ageRangePreference,
-      'distancePreference': distancePreference,
+      // 'distancePreference': distancePreference,
     };
   }
 
@@ -133,13 +133,14 @@ class UserUI extends Equatable {
     String? interests,
     String? bio,
     String? jobTitle,
-    Location? location,
+    // Location? location,
+    String? location,
     List<String>? swipeLeft,
     List<String>? swipeRight,
     List<Map<String, dynamic>>? matches,
     List<String>? genderPreference,
     List<int>? ageRangePreference,
-    int? distancePreference,
+    // int? distancePreference,
   }) {
     return UserUI(
       id: id ?? this.id,
@@ -156,7 +157,7 @@ class UserUI extends Equatable {
       matches: matches ?? this.matches,
       genderPreference: genderPreference ?? this.genderPreference,
       ageRangePreference: ageRangePreference ?? this.ageRangePreference,
-      distancePreference: distancePreference ?? this.distancePreference,
+      //distancePreference: distancePreference ?? this.distancePreference,
     );
   }
 

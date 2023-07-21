@@ -47,17 +47,17 @@ class UpdateUserImages extends OnboardingEvent {
   List<Object?> get props => [user, image];
 }
 
-class SetUserLocation extends OnboardingEvent {
-  final Location? location;
-  final GoogleMapController? controller;
-  final bool isUpdateComplete;
+// class SetUserLocation extends OnboardingEvent {
+//   final Location? location;
+//   final GoogleMapController? controller;
+//   final bool isUpdateComplete;
 
-  const SetUserLocation({
-    this.location,
-    this.controller,
-    this.isUpdateComplete = false,
-  });
+//   const SetUserLocation({
+//     this.location,
+//     this.controller,
+//     this.isUpdateComplete = false,
+//   });
 
-  @override
-  List<Object?> get props => [location, controller, isUpdateComplete];
-}
+//   @override
+//   List<Object?> get props => [location, controller, isUpdateComplete];
+// }

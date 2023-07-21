@@ -13,19 +13,19 @@ part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final DatabaseRepository _databaseRepository;
-  final LocationRepository _locationRepository;
+  //final LocationRepository _locationRepository;
 
   ProfileBloc({
     required DatabaseRepository databaseRepository,
     required LocationRepository locationRepository,
   })  : _databaseRepository = databaseRepository,
-        _locationRepository = locationRepository,
+        // _locationRepository = locationRepository,
         super(ProfileLoading()) {
     on<LoadProfile>(_onLoadProfile);
     on<EditProfile>(_onEditProfile);
     on<SaveProfile>(_onSaveProfile);
     on<UpdateUserProfile>(_onUpdateUserProfile);
-    on<UpdateUserLocation>(_onUpdateUserLocation);
+    //on<UpdateUserLocation>(_onUpdateUserLocation);
 
     if (FirebaseAuth.instance.currentUser != null) {
       add(LoadProfile(userId: FirebaseAuth.instance.currentUser!.uid));
@@ -85,36 +85,37 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       );
     }
   }
-
-  void _onUpdateUserLocation(
-    UpdateUserLocation event,
-    Emitter<ProfileState> emit,
-  ) async {
-    final state = this.state as ProfileLoaded;
-
-    if (event.isUpdateComplete && event.location != null) {
-      print('Getting location with the Places API');
-      final Location location =
-          await _locationRepository.getLocation(event.location!.name);
-
-      state.controller!.animateCamera(
-        CameraUpdate.newLatLng(
-          LatLng(
-            location.lat.toDouble(),
-            location.lon.toDouble(),
-          ),
-        ),
-      );
-
-      add(UpdateUserProfile(user: state.user.copyWith(location: location)));
-    } else {
-      emit(
-        ProfileLoaded(
-          user: state.user.copyWith(location: event.location),
-          controller: event.controller ?? state.controller,
-          isEditingOn: state.isEditingOn,
-        ),
-      );
-    }
-  }
 }
+
+//   void _onUpdateUserLocation(
+//     UpdateUserLocation event,
+//     Emitter<ProfileState> emit,
+//   ) async {
+//     final state = this.state as ProfileLoaded;
+
+//     if (event.isUpdateComplete && event.location != null) {
+//       print('Getting location with the Places API');
+//       final Location location =
+//           await _locationRepository.getLocation(event.location!.name);
+
+//       state.controller!.animateCamera(
+//         CameraUpdate.newLatLng(
+//           LatLng(
+//             location.lat.toDouble(),
+//             location.lon.toDouble(),
+//           ),
+//         ),
+//       );
+
+//       add(UpdateUserProfile(user: state.user.copyWith(location: location)));
+//     } else {
+//       emit(
+//         ProfileLoaded(
+//           user: state.user.copyWith(location: event.location),
+//           controller: event.controller ?? state.controller,
+//           isEditingOn: state.isEditingOn,
+//         ),
+//       );
+//     }
+//   }
+// }

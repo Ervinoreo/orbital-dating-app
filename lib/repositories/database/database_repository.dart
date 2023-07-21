@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/models/models.dart';
 import 'package:dating_app/repositories/storage/storage_repository.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'base_database_repository.dart';
@@ -92,15 +90,15 @@ class DatabaseRepository extends BaseDatabaseRepository {
                 user.age >= currentUser.ageRangePreference![0] &&
                     user.age <= currentUser.ageRangePreference![1];
 
-            bool isWithinDistance = _getDistance(currentUser, user) <=
-                currentUser.distancePreference;
+            // bool isWithinDistance = _getDistance(currentUser, user) <=
+            //     currentUser.distancePreference;
 
             if (isCurrentUser) return false;
             if (wasSwipedLeft) return false;
             if (wasSwipedRight) return false;
             if (isMatch) return false;
             if (!isWithinAgeRange) return false;
-            if (!isWithinDistance) return false;
+            //if (!isWithinDistance) return false;
 
             return true;
           },
@@ -208,19 +206,19 @@ class DatabaseRepository extends BaseDatabaseRepository {
   //       .toList();
   // });
 
-  _getDistance(UserUI currentUser, UserUI user) {
-    GeolocatorPlatform geolocator = GeolocatorPlatform.instance;
-    var distanceInKm = geolocator.distanceBetween(
-          currentUser.location!.lat.toDouble(),
-          currentUser.location!.lon.toDouble(),
-          user.location!.lat.toDouble(),
-          user.location!.lon.toDouble(),
-        ) ~/
-        1000;
-    print(
-        'Distance in KM between ${currentUser.name} & ${user.name}: $distanceInKm');
-    return distanceInKm;
-  }
+  // _getDistance(UserUI currentUser, UserUI user) {
+  //   GeolocatorPlatform geolocator = GeolocatorPlatform.instance;
+  //   var distanceInKm = geolocator.distanceBetween(
+  //         currentUser.location!.lat.toDouble(),
+  //         currentUser.location!.lon.toDouble(),
+  //         user.location!.lat.toDouble(),
+  //         user.location!.lon.toDouble(),
+  //       ) ~/
+  //       1000;
+  //   print(
+  //       'Distance in KM between ${currentUser.name} & ${user.name}: $distanceInKm');
+  //   return distanceInKm;
+  // }
 
   @override
   Stream<Chat> getChat(String chatId) {

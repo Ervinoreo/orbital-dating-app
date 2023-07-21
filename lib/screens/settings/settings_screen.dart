@@ -73,7 +73,7 @@ class SettingsScreen extends StatelessWidget {
                     SizedBox(height: 10),
                     _GenderPreference(),
                     _AgeRangePreference(),
-                    _DistancePreference(),
+                    //_DistancePreference(),
                   ],
                 ),
               );
@@ -87,69 +87,69 @@ class SettingsScreen extends StatelessWidget {
   }
 }
 
-class _DistancePreference extends StatelessWidget {
-  const _DistancePreference({
-    Key? key,
-  }) : super(key: key);
+// class _DistancePreference extends StatelessWidget {
+//   const _DistancePreference({
+//     Key? key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
-      builder: (context, state) {
-        state as ProfileLoaded;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Maximum Distance',
-              style: TextStyle(fontSize: 30),
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Slider(
-                    value: state.user.distancePreference!.toDouble(),
-                    min: 0,
-                    max: 5000,
-                    activeColor: Theme.of(context).primaryColor,
-                    inactiveColor: Theme.of(context).primaryColor,
-                    onChanged: (value) {
-                      context.read<ProfileBloc>().add(
-                            UpdateUserProfile(
-                              user: state.user.copyWith(
-                                distancePreference: value.toInt(),
-                              ),
-                            ),
-                          );
-                    },
-                    onChangeEnd: (double newValue) {
-                      print('Ended change on $newValue');
-                      context.read<ProfileBloc>().add(
-                            SaveProfile(
-                              user: state.user.copyWith(
-                                distancePreference: newValue.toInt(),
-                              ),
-                            ),
-                          );
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 50,
-                  child: Text(
-                    '${state.user.distancePreference!} km',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-          ],
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<ProfileBloc, ProfileState>(
+//       builder: (context, state) {
+//         state as ProfileLoaded;
+//         return Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Text(
+//               'Maximum Distance',
+//               style: TextStyle(fontSize: 30),
+//             ),
+//             Row(
+//               children: [
+//                 Expanded(
+//                   child: Slider(
+//                     value: state.user.distancePreference!.toDouble(),
+//                     min: 0,
+//                     max: 5000,
+//                     activeColor: Theme.of(context).primaryColor,
+//                     inactiveColor: Theme.of(context).primaryColor,
+//                     onChanged: (value) {
+//                       context.read<ProfileBloc>().add(
+//                             UpdateUserProfile(
+//                               user: state.user.copyWith(
+//                                 distancePreference: value.toInt(),
+//                               ),
+//                             ),
+//                           );
+//                     },
+//                     onChangeEnd: (double newValue) {
+//                       print('Ended change on $newValue');
+//                       context.read<ProfileBloc>().add(
+//                             SaveProfile(
+//                               user: state.user.copyWith(
+//                                 distancePreference: newValue.toInt(),
+//                               ),
+//                             ),
+//                           );
+//                     },
+//                   ),
+//                 ),
+//                 SizedBox(
+//                   width: 50,
+//                   child: Text(
+//                     '${state.user.distancePreference!} km',
+//                     style: Theme.of(context).textTheme.headline6,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//             SizedBox(height: 10),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
 
 class _AgeRangePreference extends StatelessWidget {
   const _AgeRangePreference({

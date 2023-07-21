@@ -2,10 +2,8 @@ import 'package:dating_app/screens/onboarding/widgets/widgets.dart';
 import 'package:dating_app/screens/widgets/user_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../bloc/profile/profile_bloc.dart';
-import '../../models/location_model.dart';
 import '../onboarding/widgets/custom_elevated_button.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -70,8 +68,8 @@ class ProfileScreen extends StatelessWidget {
                               padding: const EdgeInsets.only(bottom: 40.0),
                               child: Text(state.user.name,
                                   style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 50,
+                                    color: Colors.white,
+                                    fontSize: 25,
                                     fontWeight: FontWeight.bold,
                                   )),
                             ),
@@ -121,10 +119,21 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          _TextField(
+                            title: 'Name',
+                            value: state.user.name,
+                            onChanged: (value) {
+                              context.read<ProfileBloc>().add(
+                                    UpdateUserProfile(
+                                      user: state.user.copyWith(name: value),
+                                    ),
+                                  );
+                            },
+                          ),
                           _TextField(
                             title: 'Biography',
                             value: state.user.bio,
@@ -156,7 +165,7 @@ class ProfileScreen extends StatelessWidget {
                             },
                           ),
                           _TextField(
-                            title: 'Job Title',
+                            title: 'Course/Job Title',
                             value: state.user.jobTitle,
                             onChanged: (value) {
                               context.read<ProfileBloc>().add(
@@ -181,9 +190,21 @@ class ProfileScreen extends StatelessWidget {
                                   );
                             },
                           ),
-                          _Location(
+                          // _Location(
+                          //   title: 'Location',
+                          //   // value: state.user.location!.name,
+                          // ),
+                          _TextField(
                             title: 'Location',
-                            value: state.user.location!.name,
+                            value: state.user.location!,
+                            onChanged: (value) {
+                              context.read<ProfileBloc>().add(
+                                    UpdateUserProfile(
+                                      user:
+                                          state.user.copyWith(location: value),
+                                    ),
+                                  );
+                            },
                           ),
                         ],
                       ),
@@ -353,83 +374,83 @@ class _Interests extends StatelessWidget {
   }
 }
 
-class _Location extends StatelessWidget {
-  const _Location({
-    Key? key,
-    required this.title,
-    required this.value,
-  }) : super(key: key);
+// class _Location extends StatelessWidget {
+//   const _Location({
+//     Key? key,
+//     required this.title,
+//     required this.value,
+//   }) : super(key: key);
 
-  final String title;
-  final String value;
+//   final String title;
+//   final String value;
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
-      builder: (context, state) {
-        state as ProfileLoaded;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Location',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            state.isEditingOn
-                ? CustomTextField(
-                    initialValue: value,
-                    onChanged: (value) {
-                      Location location =
-                          state.user.location!.copyWith(name: value);
-                      context
-                          .read<ProfileBloc>()
-                          .add(UpdateUserLocation(location: location));
-                    },
-                    onFocusChanged: (hasFocus) {
-                      if (hasFocus) {
-                        return;
-                      } else {
-                        context.read<ProfileBloc>().add(
-                              UpdateUserLocation(
-                                isUpdateComplete: true,
-                                location: state.user.location,
-                              ),
-                            );
-                      }
-                    },
-                  )
-                : Text(
-                    value,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(height: 1.5),
-                  ),
-            SizedBox(height: 20),
-            SizedBox(
-              height: 300,
-              child: GoogleMap(
-                myLocationEnabled: true,
-                myLocationButtonEnabled: false,
-                onMapCreated: (GoogleMapController controller) {
-                  context.read<ProfileBloc>().add(
-                        UpdateUserLocation(controller: controller),
-                      );
-                },
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(
-                    state.user.location!.lat.toDouble(),
-                    state.user.location!.lon.toDouble(),
-                  ),
-                  zoom: 10,
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-          ],
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<ProfileBloc, ProfileState>(
+//       builder: (context, state) {
+//         state as ProfileLoaded;
+//         return Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Text(
+//               'Location',
+//               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+//             ),
+//             SizedBox(height: 10),
+//             state.isEditingOn
+//                 ? CustomTextField(
+//                     initialValue: value,
+//                     onChanged: (value) {
+//                       Location location =
+//                           state.user.location!.copyWith(name: value);
+//                       context
+//                           .read<ProfileBloc>()
+//                           .add(UpdateUserLocation(location: location));
+//                     },
+//                     onFocusChanged: (hasFocus) {
+//                       if (hasFocus) {
+//                         return;
+//                       } else {
+//                         context.read<ProfileBloc>().add(
+//                               UpdateUserLocation(
+//                                 isUpdateComplete: true,
+//                                 location: state.user.location,
+//                               ),
+//                             );
+//                       }
+//                     },
+//                   )
+//                 : Text(
+//                     value,
+//                     style: Theme.of(context)
+//                         .textTheme
+//                         .bodyText1!
+//                         .copyWith(height: 1.5),
+//                   ),
+//             SizedBox(height: 20),
+//             SizedBox(
+//               height: 300,
+//               child: GoogleMap(
+//                 myLocationEnabled: true,
+//                 myLocationButtonEnabled: false,
+//                 onMapCreated: (GoogleMapController controller) {
+//                   context.read<ProfileBloc>().add(
+//                         UpdateUserLocation(controller: controller),
+//                       );
+//                 },
+//                 initialCameraPosition: CameraPosition(
+//                   target: LatLng(
+//                     state.user.location!.lat.toDouble(),
+//                     state.user.location!.lon.toDouble(),
+//                   ),
+//                   zoom: 10,
+//                 ),
+//               ),
+//             ),
+//             SizedBox(height: 10),
+//           ],
+//         );
+//       },
+//     );
+//   }
+// }
