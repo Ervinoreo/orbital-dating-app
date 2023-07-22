@@ -45,6 +45,7 @@ class ProfileScreen extends StatelessWidget {
               }
               if (state is ProfileLoaded) {
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 5),
                     UserImage.medium(
@@ -83,11 +84,11 @@ class ProfileScreen extends StatelessWidget {
                           CustomElevatedButton(
                             text: 'View',
                             beginColor: state.isEditingOn
-                                ? Colors.white
-                                : Colors.orange,
+                                ? Colors.orange[300]!
+                                : Colors.orange[900]!,
                             endColor: state.isEditingOn
-                                ? Colors.orange
-                                : Colors.white,
+                                ? Colors.orange[900]!
+                                : Colors.orange[300]!,
                             textColor:
                                 state.isEditingOn ? Colors.black : Colors.white,
                             width: MediaQuery.of(context).size.width * 0.45,
@@ -101,11 +102,11 @@ class ProfileScreen extends StatelessWidget {
                           CustomElevatedButton(
                             text: 'Edit',
                             beginColor: state.isEditingOn
-                                ? Colors.white
-                                : Colors.orange,
+                                ? Colors.orange[300]!
+                                : Colors.orange[900]!,
                             endColor: state.isEditingOn
-                                ? Colors.orange
-                                : Colors.white,
+                                ? Colors.orange[900]!
+                                : Colors.orange[300]!,
                             textColor:
                                 state.isEditingOn ? Colors.black : Colors.white,
                             width: MediaQuery.of(context).size.width * 0.45,
@@ -279,7 +280,11 @@ class _TextField extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(title,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.orange[900],
+                )),
             SizedBox(height: 10),
             state.isEditingOn
                 ? CustomTextField(
@@ -288,10 +293,10 @@ class _TextField extends StatelessWidget {
                   )
                 : Text(
                     value,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1!
-                        .copyWith(height: 1.5),
+                    style: TextStyle(
+                      height: 1.5,
+                      fontSize: 15,
+                    ),
                   ),
             SizedBox(height: 10),
           ],

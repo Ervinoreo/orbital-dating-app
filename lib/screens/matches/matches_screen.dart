@@ -65,18 +65,27 @@ class MatchesScreen extends StatelessWidget {
                   children: [
                     Text('Your Likes',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold)),
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.orange[900])),
                     inactiveMatches.length == 0
                         ? Padding(
                             padding: const EdgeInsets.symmetric(vertical: 20.0),
-                            child: Text('Go back to swiping'),
+                            child: Text(
+                              'Go back to swiping',
+                              style: TextStyle(
+                                fontSize: 15,
+                              ),
+                            ),
                           )
                         : MatchesList(inactiveMatches: inactiveMatches),
                     SizedBox(height: 10),
                     Text(
                       'Your Chats',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.orange[900]),
                     ),
                     ChatList(activeMatches: activeMatches)
                   ],

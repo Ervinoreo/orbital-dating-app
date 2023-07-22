@@ -67,6 +67,8 @@ class SettingsScreen extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Set Up your Preferences',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -166,7 +168,7 @@ class _AgeRangePreference extends StatelessWidget {
           children: [
             Text(
               'Age Range',
-              style: TextStyle(fontSize: 30),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Row(
               children: [
@@ -178,8 +180,8 @@ class _AgeRangePreference extends StatelessWidget {
                     ),
                     min: 5,
                     max: 100,
-                    activeColor: Theme.of(context).primaryColor,
-                    inactiveColor: Theme.of(context).primaryColor,
+                    activeColor: Colors.orange[500],
+                    inactiveColor: Colors.orange[500],
                     onChanged: (rangeValues) {
                       context.read<ProfileBloc>().add(
                             UpdateUserProfile(
@@ -239,11 +241,12 @@ class _GenderPreference extends StatelessWidget {
           children: [
             Text(
               'Show me: ',
-              style: TextStyle(fontSize: 30),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             Row(
               children: [
                 Checkbox(
+                  activeColor: Colors.orange[500],
                   value: state.user.genderPreference!.contains('Male'),
                   onChanged: (value) {
                     if (state.user.genderPreference!.contains('Male')) {
@@ -285,6 +288,7 @@ class _GenderPreference extends StatelessWidget {
             Row(
               children: [
                 Checkbox(
+                  activeColor: Colors.orange[500],
                   value: state.user.genderPreference!.contains('Female'),
                   onChanged: (value) {
                     if (state.user.genderPreference!.contains('Female')) {
