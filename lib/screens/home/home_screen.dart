@@ -2,8 +2,8 @@ import 'package:dating_app/screens/onboarding/widgets/custom_elevated_button.dar
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import '../../bloc/swipe/swipe_bloc.dart';
-import '../chat/chat_screen.dart';
 import '../widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,8 +16,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void signUserOut() {
-    FirebaseAuth.instance.signOut();
+  void signUserOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   @override

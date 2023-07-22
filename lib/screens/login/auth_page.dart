@@ -2,6 +2,7 @@ import 'package:dating_app/screens/login/login_or_register_screen.dart';
 import 'package:dating_app/screens/screens.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});

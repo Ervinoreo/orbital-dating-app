@@ -20,11 +20,11 @@ class SettingsScreen extends StatelessWidget {
           backgroundColor: Colors.orange[900],
           title: Text('Settings'),
           actions: [
-            IconButton(
-                icon: Icon(Icons.message),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/matches');
-                }),
+            // IconButton(
+            //     icon: Icon(Icons.message),
+            //     onPressed: () {
+            //       Navigator.pushNamed(context, '/matches');
+            //     }),
             IconButton(
                 icon: Icon(Icons.person),
                 onPressed: () {

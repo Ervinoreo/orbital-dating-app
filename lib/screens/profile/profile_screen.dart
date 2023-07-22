@@ -24,11 +24,11 @@ class ProfileScreen extends StatelessWidget {
             backgroundColor: Colors.orange[900],
             title: Text('Profile'),
             actions: [
-              IconButton(
-                  icon: Icon(Icons.message),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/matches');
-                  }),
+              // IconButton(
+              //     icon: Icon(Icons.message),
+              //     onPressed: () {
+              //       Navigator.pushNamed(context, '/matches');
+              //     }),
               IconButton(
                   icon: Icon(Icons.settings),
                   onPressed: () {
@@ -119,7 +119,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

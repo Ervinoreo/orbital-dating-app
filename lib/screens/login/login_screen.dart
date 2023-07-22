@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dating_app/components/my_button.dart';
 import 'package:dating_app/components/my_textfield.dart';
 import 'package:dating_app/screens/login/forgot_password_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 class LoginScreen extends StatefulWidget {
   final Function()? onTap;
@@ -29,7 +31,9 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
+
       Navigator.pop(context);
+      Phoenix.rebirth(context);
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       showErrorMessage(e.code);
