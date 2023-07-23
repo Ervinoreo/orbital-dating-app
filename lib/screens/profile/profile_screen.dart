@@ -320,7 +320,10 @@ class _Pictures extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Pictures',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.orange[900])),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 10),
               height: state.user.imageUrls.length > 0 ? 125 : 0,
