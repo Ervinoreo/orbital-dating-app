@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 class CustomButton extends StatelessWidget {
   final TabController tabController;
@@ -23,6 +24,7 @@ class CustomButton extends StatelessWidget {
             onPressed: () {
               if (tabController.index == 4) {
                 Navigator.pushNamed(context, '/');
+                Phoenix.rebirth(context);
               } else {
                 tabController.animateTo(tabController.index + 1);
               }
